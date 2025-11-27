@@ -1,29 +1,26 @@
 import { execSync } from 'child_process';
 import { DeclastructChange } from 'declastruct';
-import { existsSync, mkdirSync, readFileSync, rmSync } from 'fs';
+import { existsSync, mkdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { given, when, then } from 'test-fns';
 
-import { getSampleGithubContext } from '../../.test/assets/getSampleGithubContext';
-import { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
-import { getDeclastructGithubProvider } from '../../domain.operations/provider/getDeclastructGithubProvider';
+import { getDeclastructUnixNetworkProvider } from '../../domain.operations/provider/getDeclastructUnixNetworkProvider';
 
 const log = console;
 
 /**
- * .what = acceptance tests for declastruct CLI workflow
+ * .what = acceptance tests for declastruct CLI workflow with unix network provider
  * .why = validates end-to-end usage of declastruct-unix-network with declastruct CLI
+ * .note = requires sudo access - run with `sudo -E npm run test:acceptance`
  */
 describe('declastruct CLI workflow', () => {
-  const githubContext = getSampleGithubContext();
-
   given('a declastruct resources file', () => {
     const testDir = join(
       __dirname,
       '.test',
       '.temp',
       'acceptance',
-      `run.${new Date().toISOString()}`,
+      `run.${new Date().toISOString().replace(/:/g, '-')}`,
     );
     const resourcesFile = join(
       __dirname,
@@ -61,7 +58,7 @@ describe('declastruct CLI workflow', () => {
         expect(Array.isArray(plan.changes)).toBe(true);
       });
 
-      then('plan includes repo and config resources', async () => {
+      then('plan includes host alias and port alias resources', async () => {
         /**
          * .what = validates plan includes all declared resources
          * .why = ensures declastruct correctly processes resource declarations
@@ -77,32 +74,30 @@ describe('declastruct CLI workflow', () => {
         const plan = JSON.parse(readFileSync(planFile, 'utf-8'));
 
         // verify resources
-        const repoResource: DeclastructChange = plan.changes.find(
+        const hostAliasResource: DeclastructChange = plan.changes.find(
           (r: DeclastructChange) =>
-            r.forResource.class === 'DeclaredGithubRepo',
+            r.forResource.class === 'DeclaredUnixHostAlias',
         );
-        const configResource: DeclastructChange = plan.changes.find(
+        const portAliasResource: DeclastructChange = plan.changes.find(
           (r: DeclastructChange) =>
-            r.forResource.class === 'DeclaredGithubRepoConfig',
+            r.forResource.class === 'DeclaredUnixPortAlias',
         );
 
-        expect(repoResource).toBeDefined();
-        expect(repoResource.forResource.slug).toContain(
-          'declastruct-unix-network-demo',
+        expect(hostAliasResource).toBeDefined();
+        expect(hostAliasResource.forResource.slug).toContain(
+          'declastruct-unix-network.test.local',
         );
-        expect(configResource).toBeDefined();
-        expect(configResource.forResource.slug).toContain(
-          'declastruct-unix-network-demo',
-        );
+        expect(portAliasResource).toBeDefined();
+        expect(portAliasResource.forResource.slug).toContain('59432');
       });
     });
 
     when('applying a plan via declastruct CLI', () => {
       then('executes changes and verifies resources exist', async () => {
         /**
-         * .what = validates declastruct apply command works with github provider
+         * .what = validates declastruct apply command works with unix network provider
          * .why = ensures end-to-end workflow from plan to reality
-         * .note = uses existing declastruct-unix-network-demo repo for idempotent test
+         * .note = requires sudo - this test modifies /etc/hosts and creates systemd services
          */
 
         // generate plan
@@ -117,24 +112,21 @@ describe('declastruct CLI workflow', () => {
           env: process.env,
         });
 
-        // verify resources exist via github API
-        const provider = getDeclastructGithubProvider(
-          {
-            credentials: { token: githubContext.github.token },
-          },
-          { log },
-        );
+        // verify resources exist via provider
+        const provider = getDeclastructUnixNetworkProvider({}, { log });
 
-        const repo = await provider.daos.DeclaredGithubRepo.get.byUnique(
-          {
-            owner: 'ehmpathy',
-            name: 'declastruct-unix-network-demo',
-          },
-          provider.context,
-        );
+        const hostAlias =
+          await provider.daos.DeclaredUnixHostAlias.get.byUnique(
+            {
+              via: '/etc/hosts',
+              from: 'declastruct-unix-network.test.local',
+            },
+            provider.context,
+          );
 
-        expect(repo).toBeDefined();
-        expect(repo!.name).toBe('declastruct-unix-network-demo');
+        expect(hostAlias).toBeDefined();
+        expect(hostAlias!.from).toBe('declastruct-unix-network.test.local');
+        expect(hostAlias!.into).toBe('127.0.0.1');
       });
 
       then('is idempotent - applying same plan twice succeeds', async () => {

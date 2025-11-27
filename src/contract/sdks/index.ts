@@ -4,11 +4,20 @@
  */
 
 // provider
-export { getDeclastructGithubProvider } from '../../domain.operations/provider/getDeclastructGithubProvider';
-export type { DeclastructGithubProvider } from '../../domain.objects/DeclastructGithubProvider';
+export { getDeclastructUnixNetworkProvider } from '../../domain.operations/provider/getDeclastructUnixNetworkProvider';
+export type { DeclastructUnixNetworkProvider } from '../../domain.objects/DeclastructUnixNetworkProvider';
 
 // domain objects
-export { DeclaredGithubRepo } from '../../domain.objects/DeclaredGithubRepo';
-export { DeclaredGithubBranch } from '../../domain.objects/DeclaredGithubBranch';
-export { DeclaredGithubRepoConfig } from '../../domain.objects/DeclaredGithubRepoConfig';
-export { DeclaredGithubBranchProtection } from '../../domain.objects/DeclaredGithubBranchProtection';
+export { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
+export {
+  DeclaredUnixPortAlias,
+  UnixPortEndpoint,
+} from '../../domain.objects/DeclaredUnixPortAlias';
+
+// domain operations
+export { getOneUnixHostAlias } from '../../domain.operations/hostAlias/getOneUnixHostAlias';
+export { getAllUnixHostAliases } from '../../domain.operations/hostAlias/getAllUnixHostAliases';
+export { setUnixHostAlias } from '../../domain.operations/hostAlias/setUnixHostAlias';
+export { getOneUnixPortAlias } from '../../domain.operations/portAlias/getOneUnixPortAlias';
+export { getAllUnixPortAliases } from '../../domain.operations/portAlias/getAllUnixPortAliases';
+export { setUnixPortAlias } from '../../domain.operations/portAlias/setUnixPortAlias';
