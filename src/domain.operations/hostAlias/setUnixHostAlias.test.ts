@@ -3,7 +3,7 @@ import type { ContextLogTrail } from 'simple-log-methods';
 import { getSampleUnixNetworkContext } from '../../.test/assets/getSampleUnixNetworkContext';
 import { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
 import { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
-import * as getUnixHostAliasModule from './getUnixHostAlias';
+import * as getUnixHostAliasModule from './getOneUnixHostAlias';
 import { setUnixHostAlias } from './setUnixHostAlias';
 
 jest.mock('../../access/sdks/osUnixHostsFile', () => ({
@@ -12,7 +12,7 @@ jest.mock('../../access/sdks/osUnixHostsFile', () => ({
     replaceOsUnixHostsFileEntry: jest.fn().mockResolvedValue(undefined),
   },
 }));
-jest.mock('./getUnixHostAlias');
+jest.mock('./getOneUnixHostAlias');
 
 const context: ContextUnixNetwork & ContextLogTrail = {
   log: console,

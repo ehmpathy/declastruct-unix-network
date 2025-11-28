@@ -4,7 +4,7 @@ import { given, when, then } from 'test-fns';
 import { getSampleUnixNetworkContext } from '../../.test/assets/getSampleUnixNetworkContext';
 import { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
 import { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
-import { getAllUnixHostAliases } from './getUnixHostAliases';
+import { getAllUnixHostAliases } from './getAllUnixHostAliases';
 
 const context: ContextUnixNetwork & ContextLogTrail = {
   log: console,

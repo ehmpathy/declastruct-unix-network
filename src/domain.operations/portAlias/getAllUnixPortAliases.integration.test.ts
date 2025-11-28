@@ -3,7 +3,7 @@ import { given, when, then } from 'test-fns';
 
 import { getSampleUnixNetworkContext } from '../../.test/assets/getSampleUnixNetworkContext';
 import { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import { getAllUnixPortAliases } from './getUnixPortAliases';
+import { getAllUnixPortAliases } from './getAllUnixPortAliases';
 
 const context: ContextUnixNetwork & ContextLogTrail = {
   log: console,

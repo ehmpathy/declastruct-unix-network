@@ -7,7 +7,7 @@ import {
   DeclaredUnixPortAlias,
   UnixPortEndpoint,
 } from '../../domain.objects/DeclaredUnixPortAlias';
-import * as getUnixPortAliasModule from './getUnixPortAlias';
+import * as getUnixPortAliasModule from './getOneUnixPortAlias';
 import { setUnixPortAlias } from './setUnixPortAlias';
 
 jest.mock('../../access/sdks/osUnixSystemdSocat', () => ({
@@ -15,7 +15,7 @@ jest.mock('../../access/sdks/osUnixSystemdSocat', () => ({
     setOsUnixSystemdSocatService: jest.fn().mockResolvedValue(undefined),
   },
 }));
-jest.mock('./getUnixPortAlias');
+jest.mock('./getOneUnixPortAlias');
 
 const context: ContextUnixNetwork & ContextLogTrail = {
   log: console,
