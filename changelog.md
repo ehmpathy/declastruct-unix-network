@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.1](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.0...v1.0.1) (2025-11-28)
+
+
+### Bug Fixes
+
+* **deps:** move domain-objects to prod dep ([#2](https://github.com/ehmpathy/declastruct-unix-network/issues/2)) ([0de67cf](https://github.com/ehmpathy/declastruct-unix-network/commit/0de67cfd5aaca616683cce73e91c4a87f4d7d8d5))
+
 ## 1.0.0 (2025-11-28)
 
 
