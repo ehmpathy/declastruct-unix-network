@@ -12,12 +12,10 @@ import type { DeclaredUnixPortAlias } from './DeclaredUnixPortAlias';
 export type DeclastructUnixNetworkProvider = DeclastructProvider<
   {
     DeclaredUnixHostAlias: DeclastructDao<
-      DeclaredUnixHostAlias,
       typeof DeclaredUnixHostAlias,
       ContextUnixNetwork & ContextLogTrail
     >;
     DeclaredUnixPortAlias: DeclastructDao<
-      DeclaredUnixPortAlias,
       typeof DeclaredUnixPortAlias,
       ContextUnixNetwork & ContextLogTrail
     >;

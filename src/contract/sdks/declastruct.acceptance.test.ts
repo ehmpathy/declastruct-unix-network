@@ -116,7 +116,7 @@ describe('declastruct CLI workflow', () => {
         const provider = getDeclastructUnixNetworkProvider({}, { log });
 
         const hostAlias =
-          await provider.daos.DeclaredUnixHostAlias.get.byUnique(
+          await provider.daos.DeclaredUnixHostAlias.get.one.byUnique(
             {
               via: '/etc/hosts',
               from: 'declastruct-unix-network.test.local',
