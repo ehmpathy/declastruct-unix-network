@@ -3,7 +3,7 @@ import { isRefByUnique } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
+import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
 import { DeclaredUnixPortAlias } from '../../domain.objects/DeclaredUnixPortAlias';
 import { getOneUnixPortAlias } from '../../domain.operations/portAlias/getOneUnixPortAlias';
 import { setUnixPortAlias } from '../../domain.operations/portAlias/setUnixPortAlias';

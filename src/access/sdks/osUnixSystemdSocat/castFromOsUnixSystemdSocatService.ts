@@ -1,4 +1,4 @@
-import { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
+import type { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
 
 /**
  * .what = formats an OsUnixSystemdSocatService as systemd unit file content

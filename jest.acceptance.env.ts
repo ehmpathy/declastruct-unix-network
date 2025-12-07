@@ -1,49 +1,34 @@
-import { execSync } from 'child_process';
+import { existsSync, readFileSync } from 'fs';
+import { join } from 'path';
+import util from 'util';
 
 // eslint-disable-next-line no-undef
 jest.setTimeout(90000); // we're calling downstream apis
 
-/**
- * .what = checks if sudo access is available without prompting
- * .why = fail fast if test environment lacks required permissions
- */
-const hasSudoAccess = (): boolean => {
-  try {
-    execSync('sudo -n true', { stdio: 'ignore' });
-    return true;
-  } catch {
-    return false;
-  }
-};
+// set console.log to not truncate nested objects
+util.inspect.defaultOptions.depth = 5;
 
 /**
- * sanity check that sudo access is available for acceptance tests
- *
- * usecases
- * - prevent silent test failures due to missing permissions
- * - provide clear instructions on how to run with sudo
- *
- * why sudo is required
- * - acceptance tests modify /etc/hosts (requires root)
- * - acceptance tests create systemd unit files in /etc/systemd/system (requires root)
- * - acceptance tests run systemctl commands (requires root)
+ * .what = verify that we're running from a valid project directory; otherwise, fail fast
+ * .why = prevent confusion and hard-to-debug errors from running tests in the wrong directory
  */
-if (!hasSudoAccess())
-  throw new Error(
-    'sudo access required for acceptance tests. run with: sudo -E npm run test:acceptance',
-  );
+if (!existsSync(join(process.cwd(), 'package.json')))
+  throw new Error('no package.json found in cwd. are you @gitroot?');
 
 /**
- * sanity check that declastruct CLI is available for acceptance tests
- *
- * usecases
- * - prevent silent test failures due to missing CLI
- * - provide clear instructions on missing dependency
+ * .what = verify that the env has sufficient auth to run the tests if aws is used; otherwise, fail fast
+ * .why =
+ *   - prevent time wasted waiting on tests to fail due to lack of credentials
+ *   - prevent time wasted debugging tests which are failing due to hard-to-read missed credential errors
  */
-try {
-  execSync('npx declastruct --version', { stdio: 'pipe' });
-} catch (error) {
+const declapractUsePath = join(process.cwd(), 'declapract.use.yml');
+const requiresAwsAuth =
+  existsSync(declapractUsePath) &&
+  readFileSync(declapractUsePath, 'utf8').includes('awsAccountId');
+if (
+  requiresAwsAuth &&
+  !(process.env.AWS_PROFILE || process.env.AWS_ACCESS_KEY_ID)
+)
   throw new Error(
-    'declastruct CLI not available - required for acceptance tests',
+    'no aws credentials present. please authenticate with aws to run acceptance tests',
   );
-}

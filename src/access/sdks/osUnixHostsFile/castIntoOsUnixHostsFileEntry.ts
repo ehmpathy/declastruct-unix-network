@@ -1,4 +1,4 @@
-import {
+import type {
   OsUnixHostsFileEntry,
   OsUnixHostsFileLine,
 } from './dobj.OsUnixHostsFileEntry';

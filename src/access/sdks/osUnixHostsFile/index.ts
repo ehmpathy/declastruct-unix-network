@@ -2,9 +2,9 @@ import { addOsUnixHostsFileEntry } from './dop.addOsUnixHostsFileLine';
 import { getOsUnixHostsFileEntries } from './dop.getOsUnixHostsFileLines';
 import { replaceOsUnixHostsFileEntry } from './dop.replaceOsUnixHostsFileLine';
 
-export {
-  OsUnixHostsFileLine,
+export type {
   OsUnixHostsFileEntry,
+  OsUnixHostsFileLine,
 } from './dobj.OsUnixHostsFileEntry';
 
 /**

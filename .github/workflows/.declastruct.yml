@@ -30,10 +30,10 @@ jobs:
       has-changes-planned: ${{ steps.evaluate-plan.outputs.has-changes-planned }}
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set node-version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -45,7 +45,9 @@ jobs:
 
       - name: declastruct plan
         id: plan
-        run: npx declastruct plan --wish ${{ inputs.wish-path }} --into ${{ inputs.wish-path }}.plan.json | tee ./plan.log
+        run: |
+          set -o pipefail
+          npx declastruct plan --wish ${{ inputs.wish-path }} --into ${{ inputs.wish-path }}.plan.json | tee ./plan.log
         env:
           GITHUB_TOKEN: ${{ secrets.github-token }} # allow specifying a github token to pass to the terraform command
 
@@ -80,10 +82,10 @@ jobs:
     if: ${{ inputs.allow-apply == true && needs.plan.outputs.has-changes-planned == 'true' }}
     steps:
       - name: checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: set node-version
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v4
         with:
           node-version-file: ".nvmrc"
 
@@ -104,6 +106,8 @@ jobs:
           path: ${{ steps.extract-dir.outputs.wish-dir }}
 
       - name: declastruct apply
-        run: npx declastruct apply --plan ${{ inputs.wish-path }}.plan.json | tee ./apply.log
+        run: |
+          set -o pipefail
+          npx declastruct apply --plan ${{ inputs.wish-path }}.plan.json | tee ./apply.log
         env:
           GITHUB_TOKEN: ${{ secrets.github-token }} # allow specifying a github token to pass to the terraform command

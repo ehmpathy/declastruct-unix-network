@@ -1,4 +1,4 @@
-import { OsUnixHostsFileEntry } from '../../access/sdks/osUnixHostsFile';
+import type { OsUnixHostsFileEntry } from '../../access/sdks/osUnixHostsFile';
 import { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
 
 /**

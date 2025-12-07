@@ -1,9 +1,9 @@
 import type { ContextLogTrail } from 'simple-log-methods';
-import { given, when, then } from 'test-fns';
+import { given, then, when } from 'test-fns';
 
 import { getSampleUnixNetworkContext } from '../../.test/assets/getSampleUnixNetworkContext';
-import { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
+import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
+import type { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
 import { getAllUnixHostAliases } from './getAllUnixHostAliases';
 
 const context: ContextUnixNetwork & ContextLogTrail = {

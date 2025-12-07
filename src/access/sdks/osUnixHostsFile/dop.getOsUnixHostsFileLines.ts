@@ -1,8 +1,8 @@
 import execa from 'execa';
 
-import { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
+import type { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
 import { castIntoOsUnixHostsFileEntry } from './castIntoOsUnixHostsFileEntry';
-import { OsUnixHostsFileEntry } from './dobj.OsUnixHostsFileEntry';
+import type { OsUnixHostsFileEntry } from './dobj.OsUnixHostsFileEntry';
 
 /**
  * .what = reads and parses all entries from /etc/hosts

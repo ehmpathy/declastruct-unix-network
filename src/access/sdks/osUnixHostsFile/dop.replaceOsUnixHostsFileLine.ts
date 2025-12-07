@@ -1,10 +1,10 @@
 import execa from 'execa';
 import { UnexpectedCodePathError } from 'helpful-errors';
 
-import { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
+import type { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
 import { castFromOsUnixHostsFileEntry } from './castFromOsUnixHostsFileEntry';
 import { DEFAULT_HOSTS_FILE_PATH } from './constants';
-import { OsUnixHostsFileEntry } from './dobj.OsUnixHostsFileEntry';
+import type { OsUnixHostsFileEntry } from './dobj.OsUnixHostsFileEntry';
 
 /**
  * .what = safely replaces an entry in the hosts file using find-and-replace
