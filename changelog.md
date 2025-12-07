@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.3](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.2...v1.0.3) (2025-12-07)
+
+
+### Bug Fixes
+
+* **shape:** bump to latest declastruct dao shape ([#6](https://github.com/ehmpathy/declastruct-unix-network/issues/6)) ([f87e37e](https://github.com/ehmpathy/declastruct-unix-network/commit/f87e37e364f76ddc15a1447fcfcb9ee17d321c4c))
+
 ## [1.0.2](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.1...v1.0.2) (2025-12-07)
 
 
