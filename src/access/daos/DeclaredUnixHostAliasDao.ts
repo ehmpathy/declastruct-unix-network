@@ -1,5 +1,5 @@
 import { DeclastructDao } from 'declastruct';
-import { isRefByUnique } from 'domain-objects';
+import { isRefByUnique, type Ref } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
@@ -13,18 +13,28 @@ import { setUnixHostAlias } from '../../domain.operations/hostAlias/setUnixHostA
  * .why = wraps existing host alias operations to conform to declastruct interface
  */
 export const DeclaredUnixHostAliasDao = new DeclastructDao<
-  DeclaredUnixHostAlias,
   typeof DeclaredUnixHostAlias,
   ContextUnixNetwork & ContextLogTrail
 >({
+  dobj: DeclaredUnixHostAlias,
   get: {
-    byUnique: async (input, context) => {
-      return getOneUnixHostAlias({ by: { unique: input } }, context);
-    },
-    byRef: async (input, context) => {
-      if (isRefByUnique({ of: DeclaredUnixHostAlias })(input))
+    one: {
+      byUnique: async (input, context) => {
         return getOneUnixHostAlias({ by: { unique: input } }, context);
-      UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+      byPrimary: null,
+      byRef: async (
+        input: Ref<typeof DeclaredUnixHostAlias>,
+        context: ContextUnixNetwork & ContextLogTrail,
+      ) => {
+        if (isRefByUnique({ of: DeclaredUnixHostAlias })(input))
+          return getOneUnixHostAlias({ by: { unique: input } }, context);
+        UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+    },
+    ref: {
+      byPrimary: null,
+      byUnique: null,
     },
   },
   set: {
@@ -34,5 +44,6 @@ export const DeclaredUnixHostAliasDao = new DeclastructDao<
     upsert: async (input, context) => {
       return setUnixHostAlias({ upsert: input }, context);
     },
+    delete: null,
   },
 });

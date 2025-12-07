@@ -1,5 +1,5 @@
 import { DeclastructDao } from 'declastruct';
-import { isRefByUnique } from 'domain-objects';
+import { isRefByUnique, type Ref } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
@@ -13,18 +13,28 @@ import { setUnixPortAlias } from '../../domain.operations/portAlias/setUnixPortA
  * .why = wraps existing port alias operations to conform to declastruct interface
  */
 export const DeclaredUnixPortAliasDao = new DeclastructDao<
-  DeclaredUnixPortAlias,
   typeof DeclaredUnixPortAlias,
   ContextUnixNetwork & ContextLogTrail
 >({
+  dobj: DeclaredUnixPortAlias,
   get: {
-    byUnique: async (input, context) => {
-      return getOneUnixPortAlias({ by: { unique: input } }, context);
-    },
-    byRef: async (input, context) => {
-      if (isRefByUnique({ of: DeclaredUnixPortAlias })(input))
+    one: {
+      byUnique: async (input, context) => {
         return getOneUnixPortAlias({ by: { unique: input } }, context);
-      UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+      byPrimary: null,
+      byRef: async (
+        input: Ref<typeof DeclaredUnixPortAlias>,
+        context: ContextUnixNetwork & ContextLogTrail,
+      ) => {
+        if (isRefByUnique({ of: DeclaredUnixPortAlias })(input))
+          return getOneUnixPortAlias({ by: { unique: input } }, context);
+        UnexpectedCodePathError.throw('unsupported ref type', { input });
+      },
+    },
+    ref: {
+      byPrimary: null,
+      byUnique: null,
     },
   },
   set: {
@@ -34,5 +44,6 @@ export const DeclaredUnixPortAliasDao = new DeclastructDao<
     upsert: async (input, context) => {
       return setUnixPortAlias({ upsert: input }, context);
     },
+    delete: null,
   },
 });
