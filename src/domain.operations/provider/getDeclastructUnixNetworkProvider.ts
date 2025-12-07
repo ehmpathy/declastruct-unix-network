@@ -5,8 +5,8 @@ import { DeclaredUnixHostAliasDao } from '../../access/daos/DeclaredUnixHostAlia
 import { DeclaredUnixPortAliasDao } from '../../access/daos/DeclaredUnixPortAliasDao';
 import { DEFAULT_HOSTS_FILE_PATH } from '../../access/sdks/osUnixHostsFile/constants';
 import { DEFAULT_SYSTEMD_UNIT_DIR } from '../../access/sdks/osUnixSystemdSocat/constants';
-import { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import { DeclastructUnixNetworkProvider } from '../../domain.objects/DeclastructUnixNetworkProvider';
+import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
+import type { DeclastructUnixNetworkProvider } from '../../domain.objects/DeclastructUnixNetworkProvider';
 
 /**
  * .what = creates a declastruct provider for unix network resources

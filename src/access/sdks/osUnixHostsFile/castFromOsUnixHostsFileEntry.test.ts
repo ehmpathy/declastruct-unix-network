@@ -1,7 +1,7 @@
-import { given, when, then } from 'test-fns';
+import { given, then, when } from 'test-fns';
 
 import { castFromOsUnixHostsFileEntry } from './castFromOsUnixHostsFileEntry';
-import { OsUnixHostsFileEntry } from './dobj.OsUnixHostsFileEntry';
+import type { OsUnixHostsFileEntry } from './dobj.OsUnixHostsFileEntry';
 
 describe('castFromOsUnixHostsFileEntry', () => {
   given('data-driven test cases for hosts file entry formatting', () => {

@@ -1,4 +1,4 @@
-import { OsUnixSystemdSocatService } from '../../access/sdks/osUnixSystemdSocat';
+import type { OsUnixSystemdSocatService } from '../../access/sdks/osUnixSystemdSocat';
 import {
   DeclaredUnixPortAlias,
   UnixPortEndpoint,

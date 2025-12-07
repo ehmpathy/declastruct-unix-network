@@ -1,7 +1,7 @@
 import { getOsUnixSystemdSocatServices } from './dop.getOsUnixSystemdSocatServices';
 import { setOsUnixSystemdSocatService } from './dop.setOsUnixSystemdSocatService';
 
-export { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
+export type { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
 
 /**
  * .what = SDK for managing systemd socat services

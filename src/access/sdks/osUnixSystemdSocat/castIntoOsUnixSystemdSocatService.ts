@@ -1,4 +1,4 @@
-import { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
+import type { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
 
 /**
  * .what = parses a systemd unit file content to extract socat config

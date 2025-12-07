@@ -1,5 +1,5 @@
 import execa from 'execa';
-import { given, when, then } from 'test-fns';
+import { given, then, when } from 'test-fns';
 
 import { getSampleUnixNetworkContext } from '../../../.test/assets/getSampleUnixNetworkContext';
 import { setOsUnixSystemdSocatService } from './dop.setOsUnixSystemdSocatService';

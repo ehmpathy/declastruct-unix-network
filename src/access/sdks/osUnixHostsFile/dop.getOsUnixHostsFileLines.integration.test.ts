@@ -1,6 +1,6 @@
 import { mkdir, rm, writeFile } from 'fs/promises';
 import { join } from 'path';
-import { given, when, then } from 'test-fns';
+import { given, then, when } from 'test-fns';
 
 import { getSampleUnixNetworkContext } from '../../../.test/assets/getSampleUnixNetworkContext';
 import { getOsUnixHostsFileEntries } from './dop.getOsUnixHostsFileLines';

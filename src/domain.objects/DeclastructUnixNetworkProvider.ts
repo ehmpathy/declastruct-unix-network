@@ -1,9 +1,9 @@
-import { DeclastructDao, DeclastructProvider } from 'declastruct';
+import type { DeclastructDao, DeclastructProvider } from 'declastruct';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { ContextUnixNetwork } from './ContextUnixNetwork';
-import { DeclaredUnixHostAlias } from './DeclaredUnixHostAlias';
-import { DeclaredUnixPortAlias } from './DeclaredUnixPortAlias';
+import type { ContextUnixNetwork } from './ContextUnixNetwork';
+import type { DeclaredUnixHostAlias } from './DeclaredUnixHostAlias';
+import type { DeclaredUnixPortAlias } from './DeclaredUnixPortAlias';
 
 /**
  * .what = the declastruct provider for unix network resources

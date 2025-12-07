@@ -1,9 +1,9 @@
 import execa from 'execa';
 
-import { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
+import type { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
 import { castFromOsUnixSystemdSocatService } from './castFromOsUnixSystemdSocatService';
 import { DEFAULT_SYSTEMD_UNIT_DIR } from './constants';
-import { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
+import type { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
 
 /**
  * .what = writes/overwrites a systemd socat service unit file and enables it

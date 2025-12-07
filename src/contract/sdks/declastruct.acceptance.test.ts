@@ -1,8 +1,8 @@
 import { execSync } from 'child_process';
-import { DeclastructChange } from 'declastruct';
+import type { DeclastructChange } from 'declastruct';
 import { existsSync, mkdirSync, readFileSync } from 'fs';
 import { join } from 'path';
-import { given, when, then } from 'test-fns';
+import { given, then, when } from 'test-fns';
 
 import { getDeclastructUnixNetworkProvider } from '../../domain.operations/provider/getDeclastructUnixNetworkProvider';
 

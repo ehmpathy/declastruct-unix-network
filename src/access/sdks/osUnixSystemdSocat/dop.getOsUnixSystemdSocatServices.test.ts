@@ -1,7 +1,7 @@
-import { given, when, then } from 'test-fns';
+import { given, then, when } from 'test-fns';
 
 import { castIntoOsUnixSystemdSocatService } from './castIntoOsUnixSystemdSocatService';
-import { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
+import type { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
 
 describe('castIntoOsUnixSystemdSocatService', () => {
   given('data-driven test cases for systemd socat service parsing', () => {

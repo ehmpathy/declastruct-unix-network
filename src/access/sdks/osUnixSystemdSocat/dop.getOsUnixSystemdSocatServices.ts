@@ -1,8 +1,8 @@
 import execa from 'execa';
 
-import { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
+import type { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
 import { castIntoOsUnixSystemdSocatService } from './castIntoOsUnixSystemdSocatService';
-import { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
+import type { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';
 
 /**
  * .what = lists all socat service uris in systemd
