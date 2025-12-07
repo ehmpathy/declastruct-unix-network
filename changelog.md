@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.2](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.1...v1.0.2) (2025-12-07)
+
+
+### Bug Fixes
+
+* **practs:** bump to latest best ([#4](https://github.com/ehmpathy/declastruct-unix-network/issues/4)) ([4abb62a](https://github.com/ehmpathy/declastruct-unix-network/commit/4abb62acf630683ec716b8d80850cfa1d3d82f74))
+
 ## [1.0.1](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.0...v1.0.1) (2025-11-28)
 
 
