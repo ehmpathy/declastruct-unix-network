@@ -1,5 +1,5 @@
-import type { OsUnixHostsFileEntry } from '../../access/sdks/osUnixHostsFile';
-import { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
+import type { OsUnixHostsFileEntry } from '@src/access/sdks/osUnixHostsFile';
+import { DeclaredUnixHostAlias } from '@src/domain.objects/DeclaredUnixHostAlias';
 
 /**
  * .what = casts an OsUnixHostsFileEntry to a DeclaredUnixHostAlias

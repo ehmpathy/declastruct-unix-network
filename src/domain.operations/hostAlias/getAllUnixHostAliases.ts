@@ -1,8 +1,9 @@
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { osUnixHostsFileSdk } from '../../access/sdks/osUnixHostsFile';
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import type { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
+import { osUnixHostsFileSdk } from '@src/access/sdks/osUnixHostsFile';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import type { DeclaredUnixHostAlias } from '@src/domain.objects/DeclaredUnixHostAlias';
+
 import { castIntoDeclaredUnixHostAlias } from './castIntoDeclaredUnixHostAlias';
 
 /**

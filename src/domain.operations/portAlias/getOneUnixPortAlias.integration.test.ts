@@ -1,9 +1,10 @@
 import type { ContextLogTrail } from 'simple-log-methods';
 import { given, then, when } from 'test-fns';
 
-import { getSampleUnixNetworkContext } from '../../.test/assets/getSampleUnixNetworkContext';
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import { UnixPortEndpoint } from '../../domain.objects/DeclaredUnixPortAlias';
+import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import { UnixPortEndpoint } from '@src/domain.objects/DeclaredUnixPortAlias';
+
 import { getOneUnixPortAlias } from './getOneUnixPortAlias';
 
 const context: ContextUnixNetwork & ContextLogTrail = {

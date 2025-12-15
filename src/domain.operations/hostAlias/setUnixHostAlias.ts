@@ -2,9 +2,10 @@ import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 import type { PickOne } from 'type-fns';
 
-import { osUnixHostsFileSdk } from '../../access/sdks/osUnixHostsFile';
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import type { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
+import { osUnixHostsFileSdk } from '@src/access/sdks/osUnixHostsFile';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import type { DeclaredUnixHostAlias } from '@src/domain.objects/DeclaredUnixHostAlias';
+
 import { castFromDeclaredUnixHostAlias } from './castFromDeclaredUnixHostAlias';
 import { getOneUnixHostAlias } from './getOneUnixHostAlias';
 

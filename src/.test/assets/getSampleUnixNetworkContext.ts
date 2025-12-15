@@ -1,6 +1,6 @@
-import { DEFAULT_HOSTS_FILE_PATH } from '../../access/sdks/osUnixHostsFile/constants';
-import { DEFAULT_SYSTEMD_UNIT_DIR } from '../../access/sdks/osUnixSystemdSocat/constants';
-import { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
+import { DEFAULT_HOSTS_FILE_PATH } from '@src/access/sdks/osUnixHostsFile/constants';
+import { DEFAULT_SYSTEMD_UNIT_DIR } from '@src/access/sdks/osUnixSystemdSocat/constants';
+import { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
 
 /**
  * .what = provides sample unix network context for testing

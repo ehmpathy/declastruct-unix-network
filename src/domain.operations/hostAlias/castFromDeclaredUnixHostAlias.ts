@@ -1,5 +1,5 @@
-import type { OsUnixHostsFileEntry } from '../../access/sdks/osUnixHostsFile';
-import type { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
+import type { OsUnixHostsFileEntry } from '@src/access/sdks/osUnixHostsFile';
+import type { DeclaredUnixHostAlias } from '@src/domain.objects/DeclaredUnixHostAlias';
 
 /**
  * .what = marker comment used to identify declastruct-managed entries

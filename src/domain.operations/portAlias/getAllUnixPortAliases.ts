@@ -1,8 +1,9 @@
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { osUnixSystemdSocatSdk } from '../../access/sdks/osUnixSystemdSocat';
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import type { DeclaredUnixPortAlias } from '../../domain.objects/DeclaredUnixPortAlias';
+import { osUnixSystemdSocatSdk } from '@src/access/sdks/osUnixSystemdSocat';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import type { DeclaredUnixPortAlias } from '@src/domain.objects/DeclaredUnixPortAlias';
+
 import { castIntoDeclaredUnixPortAlias } from './castIntoDeclaredUnixPortAlias';
 
 /**

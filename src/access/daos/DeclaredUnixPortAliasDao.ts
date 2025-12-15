@@ -3,10 +3,10 @@ import { isRefByUnique, type Ref } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import { DeclaredUnixPortAlias } from '../../domain.objects/DeclaredUnixPortAlias';
-import { getOneUnixPortAlias } from '../../domain.operations/portAlias/getOneUnixPortAlias';
-import { setUnixPortAlias } from '../../domain.operations/portAlias/setUnixPortAlias';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import { DeclaredUnixPortAlias } from '@src/domain.objects/DeclaredUnixPortAlias';
+import { getOneUnixPortAlias } from '@src/domain.operations/portAlias/getOneUnixPortAlias';
+import { setUnixPortAlias } from '@src/domain.operations/portAlias/setUnixPortAlias';
 
 /**
  * .what = declastruct DAO for unix port alias resources

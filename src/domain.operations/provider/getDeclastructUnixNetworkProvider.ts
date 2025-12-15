@@ -1,12 +1,12 @@
 import { DeclastructProvider } from 'declastruct';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { DeclaredUnixHostAliasDao } from '../../access/daos/DeclaredUnixHostAliasDao';
-import { DeclaredUnixPortAliasDao } from '../../access/daos/DeclaredUnixPortAliasDao';
-import { DEFAULT_HOSTS_FILE_PATH } from '../../access/sdks/osUnixHostsFile/constants';
-import { DEFAULT_SYSTEMD_UNIT_DIR } from '../../access/sdks/osUnixSystemdSocat/constants';
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import type { DeclastructUnixNetworkProvider } from '../../domain.objects/DeclastructUnixNetworkProvider';
+import { DeclaredUnixHostAliasDao } from '@src/access/daos/DeclaredUnixHostAliasDao';
+import { DeclaredUnixPortAliasDao } from '@src/access/daos/DeclaredUnixPortAliasDao';
+import { DEFAULT_HOSTS_FILE_PATH } from '@src/access/sdks/osUnixHostsFile/constants';
+import { DEFAULT_SYSTEMD_UNIT_DIR } from '@src/access/sdks/osUnixSystemdSocat/constants';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import type { DeclastructUnixNetworkProvider } from '@src/domain.objects/DeclastructUnixNetworkProvider';
 
 /**
  * .what = creates a declastruct provider for unix network resources
