@@ -10,18 +10,18 @@ import { castFromDeclaredUnixHostAlias } from './castFromDeclaredUnixHostAlias';
 import { getOneUnixHostAlias } from './getOneUnixHostAlias';
 
 /**
- * .what = sets a unix host alias: upsert or finsert
+ * .what = sets a unix host alias: upsert or findsert
  * .why = enables declarative creation/update of host aliases following declastruct patterns
  */
 export const setUnixHostAlias = async (
   input: PickOne<{
-    finsert: DeclaredUnixHostAlias;
+    findsert: DeclaredUnixHostAlias;
     upsert: DeclaredUnixHostAlias;
   }>,
   context: ContextUnixNetwork & ContextLogTrail,
 ): Promise<DeclaredUnixHostAlias> => {
-  const desired = input.finsert ?? input.upsert;
-  if (!desired) throw new Error('finsert or upsert required');
+  const desired = input.findsert ?? input.upsert;
+  if (!desired) throw new Error('findsert or upsert required');
 
   // check if entry exists via domain-level operation
   const foundBefore = await getOneUnixHostAlias(
@@ -29,8 +29,8 @@ export const setUnixHostAlias = async (
     context,
   );
 
-  // if finsert and foundBefore, return foundBefore (don't modify)
-  if (foundBefore && input.finsert) return foundBefore;
+  // if findsert and foundBefore, return foundBefore (don't modify)
+  if (foundBefore && input.findsert) return foundBefore;
 
   // if upsert and foundBefore with same ip, return foundBefore (already correct)
   if (foundBefore && input.upsert && foundBefore.into === desired.into)

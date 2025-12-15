@@ -42,7 +42,7 @@ describe('setUnixPortAlias', () => {
       into: new UnixPortEndpoint({ host: '127.0.0.1', port: 99999 }),
     });
 
-    when('finsert is called', () => {
+    when('findsert is called', () => {
       beforeEach(() => {
         (
           getUnixPortAliasModule.getOneUnixPortAlias as jest.Mock
@@ -53,7 +53,7 @@ describe('setUnixPortAlias', () => {
         'it should return foundBefore alias without modification',
         async () => {
           const result = await setUnixPortAlias(
-            { finsert: aliasSample },
+            { findsert: aliasSample },
             context,
           );
 
@@ -163,14 +163,14 @@ describe('setUnixPortAlias', () => {
         .mockResolvedValueOnce(foundAfter); // second call: sanity check after write
     });
 
-    when('finsert is called', () => {
+    when('findsert is called', () => {
       then('it should create new service', async () => {
         const { osUnixSystemdSocatSdk } = jest.requireMock(
           '../../access/sdks/osUnixSystemdSocat',
         );
 
         const result = await setUnixPortAlias(
-          { finsert: aliasSample },
+          { findsert: aliasSample },
           context,
         );
 
