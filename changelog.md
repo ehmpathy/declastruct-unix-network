@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.4](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.3...v1.0.4) (2025-12-16)
+
+
+### Bug Fixes
+
+* **cicd:** deworm cicd via aws oidc, npm oidc, and github app auth ([#9](https://github.com/ehmpathy/declastruct-unix-network/issues/9)) ([7e92ba0](https://github.com/ehmpathy/declastruct-unix-network/commit/7e92ba0469f3752b9fff537a6c1244152c2a724f))
+
 ## [1.0.3](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.2...v1.0.3) (2025-12-07)
 
 

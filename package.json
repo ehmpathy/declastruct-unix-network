@@ -2,7 +2,7 @@
   "name": "declastruct-unix-network",
   "author": "ehmpathy",
   "description": "declarative control of unix network constructs via declastruct",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "repository": "ehmpathy/declastruct-unix-network",
   "homepage": "https://github.com/ehmpathy/declastruct-unix-network",
   "keywords": [
