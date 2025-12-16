@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.0.5](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.4...v1.0.5) (2025-12-16)
+
+
+### Bug Fixes
+
+* **dao:** bump to latest declastruct contract ([#8](https://github.com/ehmpathy/declastruct-unix-network/issues/8)) ([244803f](https://github.com/ehmpathy/declastruct-unix-network/commit/244803f01af2ea0eaf369704657aa142c7c7e5fb))
+
 ## [1.0.4](https://github.com/ehmpathy/declastruct-unix-network/compare/v1.0.3...v1.0.4) (2025-12-16)
 
 
