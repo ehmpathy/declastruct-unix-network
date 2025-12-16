@@ -1,12 +1,13 @@
 import type { ContextLogTrail } from 'simple-log-methods';
 import { given, then, when } from 'test-fns';
 
-import { getSampleUnixNetworkContext } from '../../.test/assets/getSampleUnixNetworkContext';
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
+import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
 import {
   DeclaredUnixPortAlias,
   UnixPortEndpoint,
-} from '../../domain.objects/DeclaredUnixPortAlias';
+} from '@src/domain.objects/DeclaredUnixPortAlias';
+
 import * as getUnixPortAliasModule from './getOneUnixPortAlias';
 import { setUnixPortAlias } from './setUnixPortAlias';
 

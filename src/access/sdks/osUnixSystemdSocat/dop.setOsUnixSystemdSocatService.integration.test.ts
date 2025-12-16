@@ -2,7 +2,8 @@ import { mkdir, readFile, rm } from 'fs/promises';
 import { join } from 'path';
 import { given, then, when } from 'test-fns';
 
-import { getSampleUnixNetworkContext } from '../../../.test/assets/getSampleUnixNetworkContext';
+import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
+
 import { setOsUnixSystemdSocatService } from './dop.setOsUnixSystemdSocatService';
 
 const TEST_TEMP_DIR = join(__dirname, '.test', '.temp');

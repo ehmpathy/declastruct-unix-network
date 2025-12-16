@@ -1,6 +1,7 @@
 import execa from 'execa';
 
-import type { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+
 import { castFromOsUnixSystemdSocatService } from './castFromOsUnixSystemdSocatService';
 import { DEFAULT_SYSTEMD_UNIT_DIR } from './constants';
 import type { OsUnixSystemdSocatService } from './dobj.OsUnixSystemdSocatService';

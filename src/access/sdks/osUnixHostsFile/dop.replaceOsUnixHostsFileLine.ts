@@ -1,7 +1,8 @@
 import execa from 'execa';
 import { UnexpectedCodePathError } from 'helpful-errors';
 
-import type { ContextUnixNetwork } from '../../../domain.objects/ContextUnixNetwork';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+
 import { castFromOsUnixHostsFileEntry } from './castFromOsUnixHostsFileEntry';
 import { DEFAULT_HOSTS_FILE_PATH } from './constants';
 import type { OsUnixHostsFileEntry } from './dobj.OsUnixHostsFileEntry';

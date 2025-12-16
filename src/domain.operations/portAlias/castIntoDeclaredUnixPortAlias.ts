@@ -1,8 +1,8 @@
-import type { OsUnixSystemdSocatService } from '../../access/sdks/osUnixSystemdSocat';
+import type { OsUnixSystemdSocatService } from '@src/access/sdks/osUnixSystemdSocat';
 import {
   DeclaredUnixPortAlias,
   UnixPortEndpoint,
-} from '../../domain.objects/DeclaredUnixPortAlias';
+} from '@src/domain.objects/DeclaredUnixPortAlias';
 
 /**
  * .what = casts an OsUnixSystemdSocatService to a DeclaredUnixPortAlias

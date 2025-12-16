@@ -3,8 +3,9 @@ import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 import type { PickOne } from 'type-fns';
 
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import type { DeclaredUnixPortAlias } from '../../domain.objects/DeclaredUnixPortAlias';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import type { DeclaredUnixPortAlias } from '@src/domain.objects/DeclaredUnixPortAlias';
+
 import { getAllUnixPortAliases } from './getAllUnixPortAliases';
 
 /**

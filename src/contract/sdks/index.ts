@@ -4,19 +4,18 @@
  */
 
 // domain objects
-export { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
+export { DeclaredUnixHostAlias } from '@src/domain.objects/DeclaredUnixHostAlias';
 export {
   DeclaredUnixPortAlias,
   UnixPortEndpoint,
-} from '../../domain.objects/DeclaredUnixPortAlias';
-export type { DeclastructUnixNetworkProvider } from '../../domain.objects/DeclastructUnixNetworkProvider';
-export { getAllUnixHostAliases } from '../../domain.operations/hostAlias/getAllUnixHostAliases';
-
+} from '@src/domain.objects/DeclaredUnixPortAlias';
+export type { DeclastructUnixNetworkProvider } from '@src/domain.objects/DeclastructUnixNetworkProvider';
+export { getAllUnixHostAliases } from '@src/domain.operations/hostAlias/getAllUnixHostAliases';
 // domain operations
-export { getOneUnixHostAlias } from '../../domain.operations/hostAlias/getOneUnixHostAlias';
-export { setUnixHostAlias } from '../../domain.operations/hostAlias/setUnixHostAlias';
-export { getAllUnixPortAliases } from '../../domain.operations/portAlias/getAllUnixPortAliases';
-export { getOneUnixPortAlias } from '../../domain.operations/portAlias/getOneUnixPortAlias';
-export { setUnixPortAlias } from '../../domain.operations/portAlias/setUnixPortAlias';
+export { getOneUnixHostAlias } from '@src/domain.operations/hostAlias/getOneUnixHostAlias';
+export { setUnixHostAlias } from '@src/domain.operations/hostAlias/setUnixHostAlias';
+export { getAllUnixPortAliases } from '@src/domain.operations/portAlias/getAllUnixPortAliases';
+export { getOneUnixPortAlias } from '@src/domain.operations/portAlias/getOneUnixPortAlias';
+export { setUnixPortAlias } from '@src/domain.operations/portAlias/setUnixPortAlias';
 // provider
-export { getDeclastructUnixNetworkProvider } from '../../domain.operations/provider/getDeclastructUnixNetworkProvider';
+export { getDeclastructUnixNetworkProvider } from '@src/domain.operations/provider/getDeclastructUnixNetworkProvider';

@@ -3,10 +3,10 @@ import { isRefByUnique, type Ref } from 'domain-objects';
 import { UnexpectedCodePathError } from 'helpful-errors';
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
-import { getOneUnixHostAlias } from '../../domain.operations/hostAlias/getOneUnixHostAlias';
-import { setUnixHostAlias } from '../../domain.operations/hostAlias/setUnixHostAlias';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import { DeclaredUnixHostAlias } from '@src/domain.objects/DeclaredUnixHostAlias';
+import { getOneUnixHostAlias } from '@src/domain.operations/hostAlias/getOneUnixHostAlias';
+import { setUnixHostAlias } from '@src/domain.operations/hostAlias/setUnixHostAlias';
 
 /**
  * .what = declastruct DAO for unix host alias resources

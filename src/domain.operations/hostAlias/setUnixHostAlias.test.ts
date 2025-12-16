@@ -1,8 +1,9 @@
 import type { ContextLogTrail } from 'simple-log-methods';
 
-import { getSampleUnixNetworkContext } from '../../.test/assets/getSampleUnixNetworkContext';
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import { DeclaredUnixHostAlias } from '../../domain.objects/DeclaredUnixHostAlias';
+import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import { DeclaredUnixHostAlias } from '@src/domain.objects/DeclaredUnixHostAlias';
+
 import * as getUnixHostAliasModule from './getOneUnixHostAlias';
 import { setUnixHostAlias } from './setUnixHostAlias';
 

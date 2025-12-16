@@ -2,7 +2,8 @@ import { mkdir, rm, writeFile } from 'fs/promises';
 import { join } from 'path';
 import { given, then, when } from 'test-fns';
 
-import { getSampleUnixNetworkContext } from '../../../.test/assets/getSampleUnixNetworkContext';
+import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
+
 import { getOsUnixHostsFileEntries } from './dop.getOsUnixHostsFileLines';
 
 const TEST_TEMP_DIR = join(__dirname, '.test', '.temp');

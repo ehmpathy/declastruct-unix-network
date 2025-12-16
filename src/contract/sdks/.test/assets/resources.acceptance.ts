@@ -3,7 +3,7 @@ import {
   DeclaredUnixPortAlias,
   UnixPortEndpoint,
   getDeclastructUnixNetworkProvider,
-} from '../../../../../dist/contract/sdks';
+} from '@src/contract/sdks';
 
 /**
  * .what = provider configuration for acceptance tests
@@ -14,8 +14,8 @@ export const getProviders = async () => [
     {},
     {
       log: {
-        info: () => {},
-        debug: () => {},
+        info: () => { },
+        debug: () => { },
         warn: console.warn,
         error: console.error,
       },

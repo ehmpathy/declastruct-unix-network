@@ -1,6 +1,6 @@
-import type { OsUnixSystemdSocatService } from '../../access/sdks/osUnixSystemdSocat';
-import type { ContextUnixNetwork } from '../../domain.objects/ContextUnixNetwork';
-import type { DeclaredUnixPortAlias } from '../../domain.objects/DeclaredUnixPortAlias';
+import type { OsUnixSystemdSocatService } from '@src/access/sdks/osUnixSystemdSocat';
+import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
+import type { DeclaredUnixPortAlias } from '@src/domain.objects/DeclaredUnixPortAlias';
 
 /**
  * .what = generates the systemd service uri for a port alias

@@ -1,29 +1,36 @@
-import { mkdir, rm, writeFile } from 'fs/promises';
-import { join } from 'path';
-import { given, then, when } from 'test-fns';
+import { given, then, useBeforeAll, when } from 'test-fns';
 
-import { getSampleUnixNetworkContext } from '../../../.test/assets/getSampleUnixNetworkContext';
+import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
+
+import { mkdir, readdir, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { getOsUnixSystemdSocatServices } from './dop.getOsUnixSystemdSocatServices';
 
-const TEST_TEMP_DIR = join(__dirname, '.test', '.temp');
+/**
+ * .what = creates an isolated temp directory for a test case
+ * .why = ensures complete test isolation across CI environments
+ */
+const createIsolatedTestDir = async (suffix: string): Promise<string> => {
+  const dir = join(
+    tmpdir(),
+    'declastruct-unix-network-test',
+    `${Date.now()}-${suffix}`,
+  );
+  await mkdir(dir, { recursive: true });
+  return dir;
+};
 
 describe('getOsUnixSystemdSocatServices integration', () => {
-  const testContext = getSampleUnixNetworkContext({
-    repo: { systemdUnitsDir: TEST_TEMP_DIR },
-  });
-
-  beforeAll(async () => {
-    await mkdir(TEST_TEMP_DIR, { recursive: true });
-  });
-
-  afterAll(async () => {
-    await rm(TEST_TEMP_DIR, { recursive: true, force: true });
-  });
-
   given('a temp systemd directory with socat service files', () => {
-    beforeAll(async () => {
+    const scene = useBeforeAll(async () => {
+      const testDir = await createIsolatedTestDir('socat-files');
+      const testContext = getSampleUnixNetworkContext({
+        repo: { systemdUnitsDir: testDir },
+      });
+
       await writeFile(
-        join(TEST_TEMP_DIR, 'my-forward.service'),
+        join(testDir, 'my-forward.service'),
         `[Unit]
 Description=Declastruct socat port forward 127.0.0.1:5432 -> 127.0.0.1:15432
 After=network.target
@@ -38,15 +45,24 @@ RestartSec=5
 WantedBy=multi-user.target
 `,
       );
+
+      return { testDir, testContext };
+    });
+
+    afterAll(async () => {
+      await rm(scene.testDir, { recursive: true, force: true });
     });
 
     when('reading services', () => {
       then('parses the socat service file', async () => {
-        const services = await getOsUnixSystemdSocatServices({}, testContext);
+        const services = await getOsUnixSystemdSocatServices(
+          {},
+          scene.testContext,
+        );
 
         expect(services).toHaveLength(1);
         expect(services[0]).toEqual({
-          uri: join(TEST_TEMP_DIR, 'my-forward.service'),
+          uri: join(scene.testDir, 'my-forward.service'),
           listenHost: '127.0.0.1',
           listenPort: 5432,
           connectHost: '127.0.0.1',
@@ -57,10 +73,15 @@ WantedBy=multi-user.target
   });
 
   given('a temp systemd directory with mixed service files', () => {
-    beforeAll(async () => {
+    const scene = useBeforeAll(async () => {
+      const testDir = await createIsolatedTestDir('mixed-files');
+      const testContext = getSampleUnixNetworkContext({
+        repo: { systemdUnitsDir: testDir },
+      });
+
       // create a socat service
       await writeFile(
-        join(TEST_TEMP_DIR, 'socat-forward.service'),
+        join(testDir, 'socat-forward.service'),
         `[Service]
 ExecStart=/usr/bin/socat TCP-LISTEN:8080,bind=0.0.0.0,fork,reuseaddr TCP:localhost:80
 `,
@@ -68,41 +89,60 @@ ExecStart=/usr/bin/socat TCP-LISTEN:8080,bind=0.0.0.0,fork,reuseaddr TCP:localho
 
       // create a non-socat service
       await writeFile(
-        join(TEST_TEMP_DIR, 'nginx.service'),
+        join(testDir, 'nginx.service'),
         `[Service]
 ExecStart=/usr/sbin/nginx -g 'daemon off;'
 `,
       );
+
+      // verify files were created (defensive check for CI)
+      const files = await readdir(testDir);
+
+      return { testDir, testContext, files };
+    });
+
+    afterAll(async () => {
+      await rm(scene.testDir, { recursive: true, force: true });
     });
 
     when('reading services', () => {
       then('only includes socat services', async () => {
-        const services = await getOsUnixSystemdSocatServices({}, testContext);
+        // defensive: verify files exist before testing
+        expect(scene.files).toContain('socat-forward.service');
+        expect(scene.files).toContain('nginx.service');
 
-        // should only have the socat services (my-forward from previous and socat-forward)
-        const socatServices = services.filter(
-          (s) =>
-            s.uri.includes('socat-forward') || s.uri.includes('my-forward'),
+        const services = await getOsUnixSystemdSocatServices(
+          {},
+          scene.testContext,
         );
-        expect(socatServices.length).toBeGreaterThanOrEqual(1);
+
+        // should have exactly the socat service (nginx should be filtered out)
+        expect(services).toHaveLength(1);
+        expect(services[0]?.uri).toContain('socat-forward.service');
         expect(services.find((s) => s.uri.includes('nginx'))).toBeUndefined();
       });
     });
   });
 
   given('an empty temp systemd directory', () => {
-    const emptyDir = join(TEST_TEMP_DIR, 'empty');
-    const emptyContext = getSampleUnixNetworkContext({
-      repo: { systemdUnitsDir: emptyDir },
+    const scene = useBeforeAll(async () => {
+      const testDir = await createIsolatedTestDir('empty');
+      const testContext = getSampleUnixNetworkContext({
+        repo: { systemdUnitsDir: testDir },
+      });
+      return { testDir, testContext };
     });
 
-    beforeAll(async () => {
-      await mkdir(emptyDir, { recursive: true });
+    afterAll(async () => {
+      await rm(scene.testDir, { recursive: true, force: true });
     });
 
     when('reading services', () => {
       then('returns empty array', async () => {
-        const services = await getOsUnixSystemdSocatServices({}, emptyContext);
+        const services = await getOsUnixSystemdSocatServices(
+          {},
+          scene.testContext,
+        );
 
         expect(services).toHaveLength(0);
       });

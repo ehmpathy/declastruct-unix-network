@@ -1,7 +1,8 @@
 import execa from 'execa';
 import { given, then, when } from 'test-fns';
 
-import { getSampleUnixNetworkContext } from '../../../.test/assets/getSampleUnixNetworkContext';
+import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
+
 import { setOsUnixSystemdSocatService } from './dop.setOsUnixSystemdSocatService';
 
 jest.mock('execa');

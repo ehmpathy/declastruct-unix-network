@@ -4,7 +4,7 @@ import { existsSync, mkdirSync, readFileSync } from 'fs';
 import { join } from 'path';
 import { given, then, when } from 'test-fns';
 
-import { getDeclastructUnixNetworkProvider } from '../../domain.operations/provider/getDeclastructUnixNetworkProvider';
+import { getDeclastructUnixNetworkProvider } from '@src/domain.operations/provider/getDeclastructUnixNetworkProvider';
 
 const log = console;
 
