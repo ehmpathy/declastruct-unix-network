@@ -58,8 +58,8 @@ importers:
         specifier: 0.43.11
         version: 0.43.11(declapract@0.13.0(typescript@5.4.5))
       declastruct:
-        specifier: 1.6.0
-        version: 1.6.0(domain-objects@0.31.7(@types/node@22.15.21))
+        specifier: 1.7.3
+        version: 1.7.3(domain-objects@0.31.7(@types/node@22.15.21))
       declastruct-github:
         specifier: 1.0.7
         version: 1.0.7
@@ -2128,8 +2128,8 @@ packages:
     resolution: {integrity: sha512-BWR7QNjXD/ilmpnIv33JSmGs/cItr7YAbtrydihfv2CNG8I4zYHKaI3sVCU0lSGKxdr9R6heC1sxtuU+hUDzoA==}
     engines: {node: '>=8.0.0'}
 
-  declastruct@1.6.0:
-    resolution: {integrity: sha512-HMTBQpGyuifhGB6YqQvkpwdKtxpiDDCq0+G8i4q/hx80draBCMwQAOuzHj2Q99fq+ZHy5HLQLDBM8wcfqYFxpA==}
+  declastruct@1.7.3:
+    resolution: {integrity: sha512-Yb7HqnBCRCeNopgd/6RNWCzxtogwiPKn/GIvMay1oksuIjDKAabO6dla0MqoZPFK5zqblCbZFyE3JH7OhvWpIA==}
     engines: {node: '>=8.0.0'}
     hasBin: true
     peerDependencies:
@@ -6410,7 +6410,7 @@ snapshots:
     transitivePeerDependencies:
       - aws-crt
 
-  declastruct@1.6.0(domain-objects@0.31.7(@types/node@22.15.21)):
+  declastruct@1.7.3(domain-objects@0.31.7(@types/node@22.15.21)):
     dependencies:
       bottleneck: 2.19.5
       chalk: 5.4.1
@@ -6418,6 +6418,7 @@ snapshots:
       domain-objects: 0.31.7(@types/node@22.15.21)
       helpful-errors: 1.5.3
       jest-diff: 30.0.2
+      rhachet-artifact-git: 1.1.3
       simple-log-methods: 0.6.2
       tsx: 4.20.6
       type-fns: 1.21.0
@@ -8359,8 +8360,8 @@ snapshots:
 
   with-simple-caching@0.14.2:
     dependencies:
-      '@ehmpathy/uni-time': 1.8.1
-      serde-fns: 1.2.0
+      '@ehmpathy/uni-time': 1.9.1
+      serde-fns: 1.3.1
       simple-in-memory-cache: 0.4.0
       simple-on-disk-cache: 1.7.3
       type-fns: 1.21.0

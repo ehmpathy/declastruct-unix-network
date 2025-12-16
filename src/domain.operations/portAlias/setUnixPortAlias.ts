@@ -10,18 +10,18 @@ import { castFromDeclaredUnixPortAlias } from './castFromDeclaredUnixPortAlias';
 import { getOneUnixPortAlias } from './getOneUnixPortAlias';
 
 /**
- * .what = sets a unix port alias: upsert or finsert
+ * .what = sets a unix port alias: upsert or findsert
  * .why = enables declarative creation/update of systemd-socat services following declastruct patterns
  */
 export const setUnixPortAlias = async (
   input: PickOne<{
-    finsert: DeclaredUnixPortAlias;
+    findsert: DeclaredUnixPortAlias;
     upsert: DeclaredUnixPortAlias;
   }>,
   context: ContextUnixNetwork & ContextLogTrail,
 ): Promise<DeclaredUnixPortAlias> => {
-  const desired = input.finsert ?? input.upsert;
-  if (!desired) throw new Error('finsert or upsert required');
+  const desired = input.findsert ?? input.upsert;
+  if (!desired) throw new Error('findsert or upsert required');
 
   // check if service already exists via domain-level operation
   const foundBefore = await getOneUnixPortAlias(
@@ -36,8 +36,8 @@ export const setUnixPortAlias = async (
     context,
   );
 
-  // if finsert and foundBefore, return foundBefore (don't modify)
-  if (foundBefore && input.finsert) return foundBefore;
+  // if findsert and foundBefore, return foundBefore (don't modify)
+  if (foundBefore && input.findsert) return foundBefore;
 
   // if upsert and foundBefore with same target, return foundBefore (already correct)
   if (

@@ -31,7 +31,7 @@ describe('setUnixHostAlias', () => {
     jest.clearAllMocks();
   });
 
-  it('returns found entry for finsert if hostname already exists', async () => {
+  it('returns found entry for findsert if hostname already exists', async () => {
     const foundBefore = new DeclaredUnixHostAlias({
       via: '/etc/hosts',
       from: 'myhost.local',
@@ -41,7 +41,7 @@ describe('setUnixHostAlias', () => {
       foundBefore,
     );
 
-    const result = await setUnixHostAlias({ finsert: aliasSample }, context);
+    const result = await setUnixHostAlias({ findsert: aliasSample }, context);
 
     // should return foundBefore ip, not the desired one
     expect(result.from).toBe('myhost.local');
@@ -122,7 +122,7 @@ describe('setUnixHostAlias', () => {
       '../../access/sdks/osUnixHostsFile',
     );
 
-    const result = await setUnixHostAlias({ finsert: aliasSample }, context);
+    const result = await setUnixHostAlias({ findsert: aliasSample }, context);
 
     expect(result.from).toBe('myhost.local');
     expect(result.into).toBe('192.168.1.100');
