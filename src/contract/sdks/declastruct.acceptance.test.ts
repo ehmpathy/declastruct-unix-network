@@ -18,10 +18,10 @@ const log = console;
 /**
  * .what = acceptance tests for declastruct CLI workflow with unix network provider
  * .why = validates end-to-end usage of declastruct-unix-network with declastruct CLI
- * .note = runs against an isolated temp dir (temp /etc/hosts + temp systemd dir),
- *         so no sudo is required. the temp paths are passed to the declastruct CLI
- *         subprocess via ACCEPTANCE_ETC_HOSTS_PATH / ACCEPTANCE_SYSTEMD_UNITS_DIR
- *         env vars, which resources.acceptance.ts reads to configure the provider.
+ * .note = runs against an isolated sandbox root (temp /etc/hosts + temp systemd dir),
+ *         so no sudo is required. the sandbox root is passed to the declastruct CLI
+ *         subprocess via the ACCEPTANCE_ROOT env var, which resources.acceptance.ts
+ *         reads to derive ROOT/etc/hosts and ROOT/etc/systemd/system for the provider.
  */
 describe('declastruct CLI workflow', () => {
   given('a declastruct resources file', () => {
