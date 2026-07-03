@@ -1,31 +1,37 @@
-import { mkdir, rm, writeFile } from 'fs/promises';
-import { join } from 'path';
-import { given, then, when } from 'test-fns';
+import { given, then, useBeforeAll, when } from 'test-fns';
 
 import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
 
+import { mkdir, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { getOsUnixHostsFileEntries } from './dop.getOsUnixHostsFileLines';
 
-const TEST_TEMP_DIR = join(__dirname, '.test', '.temp');
+/**
+ * .what = creates an isolated temp hosts file for a single test case
+ * .why = ensures complete test isolation across ci environments; each given
+ *        gets its own dir + file, so cases never stomp on shared state
+ */
+const createIsolatedHostsFile = async (
+  suffix: string,
+  content: string,
+): Promise<{ dir: string; hostsPath: string }> => {
+  const dir = join(
+    tmpdir(),
+    'declastruct-unix-network-test',
+    `${Date.now()}-${suffix}`,
+  );
+  await mkdir(dir, { recursive: true });
+  const hostsPath = join(dir, 'hosts');
+  await writeFile(hostsPath, content);
+  return { dir, hostsPath };
+};
 
 describe('getOsUnixHostsFileEntries integration', () => {
-  const tempHostsPath = join(TEST_TEMP_DIR, 'hosts');
-  const testContext = getSampleUnixNetworkContext({
-    repo: { etcHostsPath: tempHostsPath },
-  });
-
-  beforeAll(async () => {
-    await mkdir(TEST_TEMP_DIR, { recursive: true });
-  });
-
-  afterAll(async () => {
-    await rm(TEST_TEMP_DIR, { recursive: true, force: true });
-  });
-
   given('a temp hosts file with sample content', () => {
-    beforeAll(async () => {
-      await writeFile(
-        tempHostsPath,
+    const scene = useBeforeAll(async () => {
+      const { dir, hostsPath } = await createIsolatedHostsFile(
+        'sample',
         `# Sample hosts file
 127.0.0.1\tlocalhost
 ::1\tlocalhost\tip6-localhost
@@ -34,11 +40,19 @@ describe('getOsUnixHostsFileEntries integration', () => {
 10.0.0.1\tserver1\tserver2
 `,
       );
+      const testContext = getSampleUnixNetworkContext({
+        repo: { etcHostsPath: hostsPath },
+      });
+      return { dir, testContext };
+    });
+
+    afterAll(async () => {
+      await rm(scene.dir, { recursive: true, force: true });
     });
 
     when('reading entries', () => {
       then('parses all valid entries', async () => {
-        const entries = await getOsUnixHostsFileEntries({}, testContext);
+        const entries = await getOsUnixHostsFileEntries({}, scene.testContext);
 
         expect(entries).toHaveLength(4);
         expect(entries[0]).toEqual({
@@ -66,13 +80,21 @@ describe('getOsUnixHostsFileEntries integration', () => {
   });
 
   given('an empty hosts file', () => {
-    beforeAll(async () => {
-      await writeFile(tempHostsPath, '');
+    const scene = useBeforeAll(async () => {
+      const { dir, hostsPath } = await createIsolatedHostsFile('empty', '');
+      const testContext = getSampleUnixNetworkContext({
+        repo: { etcHostsPath: hostsPath },
+      });
+      return { dir, testContext };
+    });
+
+    afterAll(async () => {
+      await rm(scene.dir, { recursive: true, force: true });
     });
 
     when('reading entries', () => {
       then('returns empty array', async () => {
-        const entries = await getOsUnixHostsFileEntries({}, testContext);
+        const entries = await getOsUnixHostsFileEntries({}, scene.testContext);
 
         expect(entries).toHaveLength(0);
       });
@@ -80,18 +102,26 @@ describe('getOsUnixHostsFileEntries integration', () => {
   });
 
   given('a hosts file with only comments', () => {
-    beforeAll(async () => {
-      await writeFile(
-        tempHostsPath,
+    const scene = useBeforeAll(async () => {
+      const { dir, hostsPath } = await createIsolatedHostsFile(
+        'comments',
         `# This is a comment
 # Another comment
 `,
       );
+      const testContext = getSampleUnixNetworkContext({
+        repo: { etcHostsPath: hostsPath },
+      });
+      return { dir, testContext };
+    });
+
+    afterAll(async () => {
+      await rm(scene.dir, { recursive: true, force: true });
     });
 
     when('reading entries', () => {
       then('returns empty array', async () => {
-        const entries = await getOsUnixHostsFileEntries({}, testContext);
+        const entries = await getOsUnixHostsFileEntries({}, scene.testContext);
 
         expect(entries).toHaveLength(0);
       });
