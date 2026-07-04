@@ -1,17 +1,27 @@
-import { execSync } from 'child_process';
 import type { DeclastructChange } from 'declastruct';
-import { existsSync, mkdirSync, readFileSync } from 'fs';
-import { join } from 'path';
 import { given, then, when } from 'test-fns';
 
 import { getDeclastructUnixNetworkProvider } from '@src/domain.operations/provider/getDeclastructUnixNetworkProvider';
+
+import { execSync } from 'node:child_process';
+import {
+  existsSync,
+  mkdirSync,
+  readFileSync,
+  rmSync,
+  writeFileSync,
+} from 'node:fs';
+import { join } from 'node:path';
 
 const log = console;
 
 /**
  * .what = acceptance tests for declastruct CLI workflow with unix network provider
  * .why = validates end-to-end usage of declastruct-unix-network with declastruct CLI
- * .note = requires sudo access - run with `sudo -E npm run test:acceptance`
+ * .note = runs against an isolated sandbox root (temp /etc/hosts + temp systemd dir),
+ *         so no sudo is required. the sandbox root is passed to the declastruct CLI
+ *         subprocess via the ACCEPTANCE_ROOT env var, which resources.acceptance.ts
+ *         reads to derive ROOT/etc/hosts and ROOT/etc/systemd/system for the provider.
  */
 describe('declastruct CLI workflow', () => {
   given('a declastruct resources file', () => {
@@ -20,7 +30,7 @@ describe('declastruct CLI workflow', () => {
       '.test',
       '.temp',
       'acceptance',
-      `run.${new Date().toISOString().replace(/:/g, '-')}`,
+      `run.${Date.now()}`,
     );
     const resourcesFile = join(
       __dirname,
@@ -30,9 +40,30 @@ describe('declastruct CLI workflow', () => {
     );
     const planFile = join(testDir, 'plan.json');
 
+    // a single sandbox root that mirrors the real /etc layout, so apply mutates a
+    // temp hosts file + systemd dir (no sudo). the wish file derives both paths
+    // from ACCEPTANCE_ROOT as ROOT/etc/hosts and ROOT/etc/systemd/system.
+    const sandboxRoot = join(testDir, 'root');
+    const hostsPath = join(sandboxRoot, 'etc', 'hosts');
+    const systemdDir = join(sandboxRoot, 'etc', 'systemd', 'system');
+
+    // env passed to the declastruct CLI subprocess so the wish file (re-imported
+    // at plan/apply time) configures the provider with the sandbox root
+    const acceptanceEnv = {
+      ...process.env,
+      ACCEPTANCE_ROOT: sandboxRoot,
+    };
+
     beforeEach(() => {
-      // ensure clean test directory
-      mkdirSync(testDir, { recursive: true });
+      // reset to a clean, isolated sandbox state for each test
+      rmSync(testDir, { recursive: true, force: true });
+      mkdirSync(systemdDir, { recursive: true });
+      writeFileSync(hostsPath, '');
+    });
+
+    afterAll(() => {
+      // cleanup temp dir
+      rmSync(testDir, { recursive: true, force: true });
     });
 
     when('generating a plan via declastruct CLI', () => {
@@ -45,7 +76,7 @@ describe('declastruct CLI workflow', () => {
         // execute declastruct plan command
         execSync(
           `npx declastruct plan --wish ${resourcesFile} --into ${planFile}`,
-          { stdio: 'inherit', env: process.env },
+          { stdio: 'inherit', env: acceptanceEnv },
         );
 
         // verify plan file exists
@@ -67,7 +98,7 @@ describe('declastruct CLI workflow', () => {
         // execute plan generation
         execSync(
           `npx declastruct plan --wish ${resourcesFile} --into ${planFile}`,
-          { stdio: 'inherit', env: process.env },
+          { stdio: 'inherit', env: acceptanceEnv },
         );
 
         // parse plan
@@ -97,23 +128,26 @@ describe('declastruct CLI workflow', () => {
         /**
          * .what = validates declastruct apply command works with unix network provider
          * .why = ensures end-to-end workflow from plan to reality
-         * .note = requires sudo - this test modifies /etc/hosts and creates systemd services
+         * .note = mutates the temp hosts file + systemd dir (no sudo needed)
          */
 
         // generate plan
         execSync(
           `npx declastruct plan --wish ${resourcesFile} --into ${planFile}`,
-          { stdio: 'inherit', env: process.env },
+          { stdio: 'inherit', env: acceptanceEnv },
         );
 
         // apply plan
         execSync(`npx declastruct apply --plan ${planFile}`, {
           stdio: 'inherit',
-          env: process.env,
+          env: acceptanceEnv,
         });
 
-        // verify resources exist via provider
-        const provider = getDeclastructUnixNetworkProvider({}, { log });
+        // verify resources exist via provider (against the same temp paths)
+        const provider = getDeclastructUnixNetworkProvider(
+          { repo: { etcHostsPath: hostsPath, systemdUnitsDir: systemdDir } },
+          { log },
+        );
 
         const hostAlias =
           await provider.daos.DeclaredUnixHostAlias.get.one.byUnique(
@@ -129,28 +163,36 @@ describe('declastruct CLI workflow', () => {
         expect(hostAlias!.into).toBe('127.0.0.1');
       });
 
-      then('is idempotent - applying same plan twice succeeds', async () => {
+      then('is idempotent - a re-declared state applies safely', async () => {
         /**
-         * .what = validates applying the same plan multiple times is safe
+         * .what = validates that a re-declaration of the same desired state applies safely
          * .why = ensures declastruct operations follow idempotency requirements
+         * .note = declastruct rejects a stale plan (state drifts after the first
+         *         apply), so idempotency is verified via a fresh plan against
+         *         post-apply state: the second plan is an already-satisfied no-op,
+         *         which apply must accept without error.
          */
 
-        // generate plan
+        // generate plan and apply it the first time
         execSync(
           `npx declastruct plan --wish ${resourcesFile} --into ${planFile}`,
-          { stdio: 'inherit', env: process.env },
+          { stdio: 'inherit', env: acceptanceEnv },
         );
-
-        // apply plan first time
         execSync(`npx declastruct apply --plan ${planFile}`, {
           stdio: 'inherit',
-          env: process.env,
+          env: acceptanceEnv,
         });
 
-        // apply plan second time - should succeed without errors
+        // regenerate the plan against post-apply state (an already-satisfied no-op)
+        execSync(
+          `npx declastruct plan --wish ${resourcesFile} --into ${planFile}`,
+          { stdio: 'inherit', env: acceptanceEnv },
+        );
+
+        // apply the fresh plan a second time - should succeed without errors
         execSync(`npx declastruct apply --plan ${planFile}`, {
           stdio: 'inherit',
-          env: process.env,
+          env: acceptanceEnv,
         });
       });
     });
