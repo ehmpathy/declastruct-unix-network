@@ -3,7 +3,7 @@ import { given, then, when } from 'test-fns';
 
 import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
 import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
-import { UnixPortEndpoint } from '@src/domain.objects/DeclaredUnixPortAlias';
+import { UnixEndpoint } from '@src/domain.objects/UnixEndpoint';
 
 import { getOneUnixPortAlias } from './getOneUnixPortAlias';
 
@@ -26,7 +26,7 @@ describe('getOneUnixPortAlias', () => {
             by: {
               unique: {
                 via: 'systemd-socat',
-                from: new UnixPortEndpoint({ host: '127.0.0.1', port: 99999 }),
+                from: new UnixEndpoint({ host: '127.0.0.1', port: 99999 }),
               },
             },
           },

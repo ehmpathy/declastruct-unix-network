@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`setUnixSshKeypair given: a temp keys dir and a target uri when: [t1] findsert mints the key then: the deterministic keypair shape matches snapshot 1`] = `
+{
+  "algorithm": "ed25519",
+  "comment": "first-comment",
+  "publicKeyAlgo": "ssh-ed25519",
+  "via": "ssh-keygen",
+}
+`;
+
+exports[`setUnixSshKeypair given: a temp keys dir and a target uri when: [t2] findsert again with a different comment then: the reused keypair shape matches snapshot 1`] = `
+{
+  "algorithm": "ed25519",
+  "comment": "first-comment",
+  "publicKeyAlgo": "ssh-ed25519",
+  "via": "ssh-keygen",
+}
+`;

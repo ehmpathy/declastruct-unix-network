@@ -4,6 +4,8 @@ import type { ContextLogTrail } from 'simple-log-methods';
 import type { ContextUnixNetwork } from './ContextUnixNetwork';
 import type { DeclaredUnixHostAlias } from './DeclaredUnixHostAlias';
 import type { DeclaredUnixPortAlias } from './DeclaredUnixPortAlias';
+import type { DeclaredUnixSshAlias } from './DeclaredUnixSshAlias';
+import type { DeclaredUnixSshKeypair } from './DeclaredUnixSshKeypair';
 
 /**
  * .what = the declastruct provider for unix network resources
@@ -17,6 +19,14 @@ export type DeclastructUnixNetworkProvider = DeclastructProvider<
     >;
     DeclaredUnixPortAlias: DeclastructDao<
       typeof DeclaredUnixPortAlias,
+      ContextUnixNetwork & ContextLogTrail
+    >;
+    DeclaredUnixSshKeypair: DeclastructDao<
+      typeof DeclaredUnixSshKeypair,
+      ContextUnixNetwork & ContextLogTrail
+    >;
+    DeclaredUnixSshAlias: DeclastructDao<
+      typeof DeclaredUnixSshAlias,
       ContextUnixNetwork & ContextLogTrail
     >;
   },

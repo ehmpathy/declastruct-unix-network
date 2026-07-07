@@ -1,8 +1,6 @@
 import type { OsUnixSystemdSocatService } from '@src/access/sdks/osUnixSystemdSocat';
-import {
-  DeclaredUnixPortAlias,
-  UnixPortEndpoint,
-} from '@src/domain.objects/DeclaredUnixPortAlias';
+import { DeclaredUnixPortAlias } from '@src/domain.objects/DeclaredUnixPortAlias';
+import { UnixEndpoint } from '@src/domain.objects/UnixEndpoint';
 
 /**
  * .what = casts an OsUnixSystemdSocatService to a DeclaredUnixPortAlias
@@ -21,11 +19,11 @@ export const castIntoDeclaredUnixPortAlias = (input: {
   return DeclaredUnixPortAlias.as({
     uri: input.service.uri,
     via: 'systemd-socat',
-    from: new UnixPortEndpoint({
+    from: new UnixEndpoint({
       host: input.service.listenHost,
       port: input.service.listenPort,
     }),
-    into: new UnixPortEndpoint({
+    into: new UnixEndpoint({
       host: input.service.connectHost,
       port: input.service.connectPort,
     }),

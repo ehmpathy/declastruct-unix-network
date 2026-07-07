@@ -1,0 +1,33 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`setUnixSshAlias given: a temp ssh config path when: [t1] findsert creates the alias then: the found alias matches snapshot 1`] = `
+DeclaredUnixSshAlias {
+  "from": "grove",
+  "into": UnixEndpoint {
+    "host": "localhost",
+    "port": 2222,
+  },
+  "key": RefByUnique {
+    "uri": "~/.ssh/demo-key",
+    "via": "ssh-keygen",
+  },
+  "user": "ec2-user",
+  "via": "~/.ssh/config",
+}
+`;
+
+exports[`setUnixSshAlias given: a temp ssh config path when: [t2] upsert changes the port then: the updated alias matches snapshot 1`] = `
+DeclaredUnixSshAlias {
+  "from": "grove",
+  "into": UnixEndpoint {
+    "host": "localhost",
+    "port": 3333,
+  },
+  "key": RefByUnique {
+    "uri": "~/.ssh/demo-key",
+    "via": "ssh-keygen",
+  },
+  "user": "ec2-user",
+  "via": "~/.ssh/config",
+}
+`;

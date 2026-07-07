@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`getAllUnixSshKeypairs given: a temp keys dir when: [t1] two keypairs are minted then: the deterministic keypair shapes match snapshot 1`] = `
+[
+  {
+    "algorithm": "ed25519",
+    "comment": "alpha-comment",
+    "publicKeyAlgo": "ssh-ed25519",
+    "via": "ssh-keygen",
+  },
+  {
+    "algorithm": "ed25519",
+    "comment": "beta-comment",
+    "publicKeyAlgo": "ssh-ed25519",
+    "via": "ssh-keygen",
+  },
+]
+`;

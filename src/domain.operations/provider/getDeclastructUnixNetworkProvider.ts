@@ -3,7 +3,11 @@ import type { ContextLogTrail } from 'simple-log-methods';
 
 import { DeclaredUnixHostAliasDao } from '@src/access/daos/DeclaredUnixHostAliasDao';
 import { DeclaredUnixPortAliasDao } from '@src/access/daos/DeclaredUnixPortAliasDao';
+import { DeclaredUnixSshAliasDao } from '@src/access/daos/DeclaredUnixSshAliasDao';
+import { DeclaredUnixSshKeypairDao } from '@src/access/daos/DeclaredUnixSshKeypairDao';
 import { DEFAULT_HOSTS_FILE_PATH } from '@src/access/sdks/osUnixHostsFile/constants';
+import { DEFAULT_SSH_CONFIG_PATH } from '@src/access/sdks/osUnixSshConfig/constants';
+import { DEFAULT_SSH_KEYS_DIR } from '@src/access/sdks/osUnixSshKeygen/constants';
 import { DEFAULT_SYSTEMD_UNIT_DIR } from '@src/access/sdks/osUnixSystemdSocat/constants';
 import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
 import type { DeclastructUnixNetworkProvider } from '@src/domain.objects/DeclastructUnixNetworkProvider';
@@ -17,6 +21,8 @@ export const getDeclastructUnixNetworkProvider = (
     repo?: {
       etcHostsPath?: string;
       systemdUnitsDir?: string;
+      sshConfigPath?: string;
+      sshKeysDir?: string;
     };
   },
   context: ContextLogTrail,
@@ -29,6 +35,8 @@ export const getDeclastructUnixNetworkProvider = (
         etcHostsPath: input.repo?.etcHostsPath ?? DEFAULT_HOSTS_FILE_PATH,
         systemdUnitsDir:
           input.repo?.systemdUnitsDir ?? DEFAULT_SYSTEMD_UNIT_DIR,
+        sshConfigPath: input.repo?.sshConfigPath ?? DEFAULT_SSH_CONFIG_PATH,
+        sshKeysDir: input.repo?.sshKeysDir ?? DEFAULT_SSH_KEYS_DIR,
       },
     },
   };
@@ -37,6 +45,8 @@ export const getDeclastructUnixNetworkProvider = (
   const daos = {
     DeclaredUnixHostAlias: DeclaredUnixHostAliasDao,
     DeclaredUnixPortAlias: DeclaredUnixPortAliasDao,
+    DeclaredUnixSshKeypair: DeclaredUnixSshKeypairDao,
+    DeclaredUnixSshAlias: DeclaredUnixSshAliasDao,
   };
 
   // return provider with all required properties

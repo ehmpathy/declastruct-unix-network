@@ -1,0 +1,32 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`getAllUnixSshAliases given: a temp ssh config path when: [t1] two aliases are set then: the full alias list matches snapshot 1`] = `
+[
+  DeclaredUnixSshAlias {
+    "from": "grove",
+    "into": UnixEndpoint {
+      "host": "localhost",
+      "port": 2222,
+    },
+    "key": RefByUnique {
+      "uri": "~/.ssh/demo-key",
+      "via": "ssh-keygen",
+    },
+    "user": "ec2-user",
+    "via": "~/.ssh/config",
+  },
+  DeclaredUnixSshAlias {
+    "from": "meadow",
+    "into": UnixEndpoint {
+      "host": "localhost",
+      "port": 2223,
+    },
+    "key": RefByUnique {
+      "uri": "~/.ssh/demo-key",
+      "via": "ssh-keygen",
+    },
+    "user": "ec2-user",
+    "via": "~/.ssh/config",
+  },
+]
+`;

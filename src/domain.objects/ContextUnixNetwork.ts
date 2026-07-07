@@ -20,6 +20,18 @@ export interface ContextUnixNetwork {
        * .why = enables testing without modifying system services
        */
       systemdUnitsDir: string;
+
+      /**
+       * .what = path for ~/.ssh/config
+       * .why = enables tests to target a sandbox, not the real ssh config file
+       */
+      sshConfigPath: string;
+
+      /**
+       * .what = directory that holds ssh keypairs (e.g. ~/.ssh)
+       * .why = enables tests to target a sandbox, not the real ~/.ssh dir
+       */
+      sshKeysDir: string;
     };
   };
 }

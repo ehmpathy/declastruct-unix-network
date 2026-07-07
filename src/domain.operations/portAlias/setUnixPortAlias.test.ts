@@ -3,10 +3,8 @@ import { given, then, when } from 'test-fns';
 
 import { getSampleUnixNetworkContext } from '@src/.test/assets/getSampleUnixNetworkContext';
 import type { ContextUnixNetwork } from '@src/domain.objects/ContextUnixNetwork';
-import {
-  DeclaredUnixPortAlias,
-  UnixPortEndpoint,
-} from '@src/domain.objects/DeclaredUnixPortAlias';
+import { DeclaredUnixPortAlias } from '@src/domain.objects/DeclaredUnixPortAlias';
+import { UnixEndpoint } from '@src/domain.objects/UnixEndpoint';
 
 import * as getUnixPortAliasModule from './getOneUnixPortAlias';
 import { setUnixPortAlias } from './setUnixPortAlias';
@@ -25,8 +23,8 @@ const context: ContextUnixNetwork & ContextLogTrail = {
 
 const aliasSample = new DeclaredUnixPortAlias({
   via: 'systemd-socat',
-  from: new UnixPortEndpoint({ host: '127.0.0.1', port: 5432 }),
-  into: new UnixPortEndpoint({ host: '127.0.0.1', port: 15432 }),
+  from: new UnixEndpoint({ host: '127.0.0.1', port: 5432 }),
+  into: new UnixEndpoint({ host: '127.0.0.1', port: 15432 }),
 });
 
 describe('setUnixPortAlias', () => {
@@ -38,8 +36,8 @@ describe('setUnixPortAlias', () => {
     const foundBefore = new DeclaredUnixPortAlias({
       uri: '/etc/systemd/system/declastruct-socat-127-0-0-1-5432.service',
       via: 'systemd-socat',
-      from: new UnixPortEndpoint({ host: '127.0.0.1', port: 5432 }),
-      into: new UnixPortEndpoint({ host: '127.0.0.1', port: 99999 }),
+      from: new UnixEndpoint({ host: '127.0.0.1', port: 5432 }),
+      into: new UnixEndpoint({ host: '127.0.0.1', port: 99999 }),
     });
 
     when('findsert is called', () => {
@@ -75,8 +73,8 @@ describe('setUnixPortAlias', () => {
       const foundAfter = new DeclaredUnixPortAlias({
         uri: '/etc/systemd/system/declastruct-socat-127-0-0-1-5432.service',
         via: 'systemd-socat',
-        from: new UnixPortEndpoint({ host: '127.0.0.1', port: 5432 }),
-        into: new UnixPortEndpoint({ host: '127.0.0.1', port: 15432 }),
+        from: new UnixEndpoint({ host: '127.0.0.1', port: 5432 }),
+        into: new UnixEndpoint({ host: '127.0.0.1', port: 15432 }),
       });
 
       beforeEach(() => {
@@ -115,8 +113,8 @@ describe('setUnixPortAlias', () => {
     const foundBefore = new DeclaredUnixPortAlias({
       uri: '/etc/systemd/system/declastruct-socat-127-0-0-1-5432.service',
       via: 'systemd-socat',
-      from: new UnixPortEndpoint({ host: '127.0.0.1', port: 5432 }),
-      into: new UnixPortEndpoint({ host: '127.0.0.1', port: 15432 }),
+      from: new UnixEndpoint({ host: '127.0.0.1', port: 5432 }),
+      into: new UnixEndpoint({ host: '127.0.0.1', port: 15432 }),
     });
 
     beforeEach(() => {
@@ -153,8 +151,8 @@ describe('setUnixPortAlias', () => {
     const foundAfter = new DeclaredUnixPortAlias({
       uri: '/etc/systemd/system/declastruct-socat-127-0-0-1-5432.service',
       via: 'systemd-socat',
-      from: new UnixPortEndpoint({ host: '127.0.0.1', port: 5432 }),
-      into: new UnixPortEndpoint({ host: '127.0.0.1', port: 15432 }),
+      from: new UnixEndpoint({ host: '127.0.0.1', port: 5432 }),
+      into: new UnixEndpoint({ host: '127.0.0.1', port: 15432 }),
     });
 
     beforeEach(() => {
