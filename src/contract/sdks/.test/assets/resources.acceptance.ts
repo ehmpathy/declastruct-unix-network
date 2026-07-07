@@ -5,7 +5,9 @@ import { UnexpectedCodePathError } from 'helpful-errors';
 import {
   DeclaredUnixHostAlias,
   DeclaredUnixPortAlias,
-  UnixPortEndpoint,
+  DeclaredUnixSshAlias,
+  DeclaredUnixSshKeypair,
+  UnixEndpoint,
   getDeclastructUnixNetworkProvider,
 } from '@src/contract/sdks';
 
@@ -13,21 +15,26 @@ import {
  * .what = resolves the repo paths the acceptance provider should target
  * .why = enforces an explicit choice between sandbox and real-host, with NO
  *        silent fallback to the real system:
- *        - sandbox (default): requires ACCEPTANCE_ROOT; the real /etc paths are
- *          mirrored under it (ACCEPTANCE_ROOT/etc/hosts, .../etc/systemd/system),
- *          so the sandbox matches the production layout. throws loudly if absent.
+ *        - sandbox (default): requires ACCEPTANCE_ROOT; the real /etc + ~/.ssh
+ *          paths are mirrored under it, so the sandbox matches the production
+ *          layout. throws loudly if absent.
  *        - real host (opt-in): set ACCEPTANCE_AGAINST_HOST=true to target the
- *          real /etc/hosts + systemd (requires sudo; ci-only host test)
+ *          real /etc + ~/.ssh (ci-only host test)
  * .note = the fail-loud throw prevents the footgun where an absent env var would
- *         quietly `sudo tee /etc/hosts` on a developer's real machine.
+ *         quietly touch a developer's real files.
  */
 const getAcceptanceRepoPaths = ():
-  | { etcHostsPath: string; systemdUnitsDir: string }
+  | {
+      etcHostsPath: string;
+      systemdUnitsDir: string;
+      sshConfigPath: string;
+      sshKeysDir: string;
+    }
   | undefined => {
   // real-host opt-in: undefined repo => provider defaults to the real system paths
   if (process.env.ACCEPTANCE_AGAINST_HOST === 'true') return undefined;
 
-  // sandbox (default): a single root, no silent fallback; mirror the real /etc layout
+  // sandbox (default): a single root, no silent fallback; mirror the real layout
   const root =
     process.env.ACCEPTANCE_ROOT ??
     UnexpectedCodePathError.throw(
@@ -36,7 +43,23 @@ const getAcceptanceRepoPaths = ():
   return {
     etcHostsPath: join(root, 'etc', 'hosts'),
     systemdUnitsDir: join(root, 'etc', 'systemd', 'system'),
+    sshConfigPath: join(root, '.ssh', 'config'),
+    sshKeysDir: join(root, '.ssh'),
   };
+};
+
+/**
+ * .what = the private key uri the acceptance keypair/alias share
+ * .why = keypair and alias must reference the same path; sandbox vs real-host
+ *        determines where that path lives
+ */
+const getAcceptanceKeyUri = (): string => {
+  if (process.env.ACCEPTANCE_AGAINST_HOST === 'true')
+    return '~/.ssh/declastruct-unix-network.test';
+  const root =
+    process.env.ACCEPTANCE_ROOT ??
+    UnexpectedCodePathError.throw('acceptance sandbox requires ACCEPTANCE_ROOT');
+  return join(root, '.ssh', 'declastruct-unix-network.test');
 };
 
 /**
@@ -50,8 +73,8 @@ export const getProviders = async () => [
     { repo: getAcceptanceRepoPaths() },
     {
       log: {
-        info: () => { },
-        debug: () => { },
+        info: () => {},
+        debug: () => {},
         warn: console.warn,
         error: console.error,
       },
@@ -61,8 +84,8 @@ export const getProviders = async () => [
 
 /**
  * .what = resource declarations for acceptance tests
- * .why = defines desired state of unix network resources for testing
- * .note = uses test-specific hostnames and ports to avoid conflicts
+ * .why = defines desired state of unix network resources for tests
+ * .note = uses test-specific hostnames, ports, and key paths to avoid conflicts
  */
 export const getResources = async () => {
   const hostAlias = DeclaredUnixHostAlias.as({
@@ -73,9 +96,27 @@ export const getResources = async () => {
 
   const portAlias = DeclaredUnixPortAlias.as({
     via: 'systemd-socat',
-    from: UnixPortEndpoint.as({ host: '127.0.0.1', port: 59432 }),
-    into: UnixPortEndpoint.as({ host: '127.0.0.1', port: 59433 }),
+    from: UnixEndpoint.as({ host: '127.0.0.1', port: 59432 }),
+    into: UnixEndpoint.as({ host: '127.0.0.1', port: 59433 }),
   });
 
-  return [hostAlias, portAlias];
+  const keyUri = getAcceptanceKeyUri();
+
+  const keypair = DeclaredUnixSshKeypair.as({
+    via: 'ssh-keygen',
+    uri: keyUri,
+    algorithm: 'ed25519',
+    comment: 'declastruct-unix-network.test',
+  });
+
+  const sshAlias = DeclaredUnixSshAlias.as({
+    via: '~/.ssh/config',
+    from: 'declastruct-unix-network.test',
+    into: UnixEndpoint.as({ host: 'localhost', port: 2222 }),
+    user: 'ec2-user',
+    key: { via: 'ssh-keygen', uri: keyUri },
+  });
+
+  // apply order: keypair before the alias that refs it
+  return [hostAlias, portAlias, keypair, sshAlias];
 };

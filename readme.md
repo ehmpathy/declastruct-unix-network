@@ -27,7 +27,7 @@ import {
   getDeclastructUnixNetworkProvider,
   DeclaredUnixHostAlias,
   DeclaredUnixPortAlias,
-  UnixPortEndpoint,
+  UnixEndpoint,
 } from 'declastruct-unix-network';
 
 export const getProviders = async (): Promise<DeclastructProvider[]> => [
@@ -55,13 +55,13 @@ export const getResources = async (): Promise<DomainEntity<any>[]> => {
   // add port aliases
   const portAliasPrep = DeclaredUnixPortAlias.as({
     via: 'systemd-socat',
-    from: UnixPortEndpoint.as({ host: '127.0.0.1', port: 5432 }),
-    into: UnixPortEndpoint.as({ host: '127.0.0.1', port: 15432 }),
+    from: UnixEndpoint.as({ host: '127.0.0.1', port: 5432 }),
+    into: UnixEndpoint.as({ host: '127.0.0.1', port: 15432 }),
   });
   const portAliasProd = DeclaredUnixPortAlias.as({
     via: 'systemd-socat',
-    from: UnixPortEndpoint.as({ host: '127.0.0.1', port: 5433 }), // non standard port, to prevent accidental access
-    into: UnixPortEndpoint.as({ host: '127.0.0.1', port: 15433 }),
+    from: UnixEndpoint.as({ host: '127.0.0.1', port: 5433 }), // non standard port, to prevent accidental access
+    into: UnixEndpoint.as({ host: '127.0.0.1', port: 15433 }),
   });
 
   // and return the full set

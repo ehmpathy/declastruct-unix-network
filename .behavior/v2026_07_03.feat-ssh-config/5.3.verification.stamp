@@ -1,0 +1,71 @@
+🦉 the way speaks for itself
+
+🗿 route.stone.set
+   ├─ stone = 5.3.verification
+   ├─ passage = overruled
+   ├─ guard
+   │  ├─ artifacts
+   │  │   ├─ $route/5.3.verification.yield.md
+   │  │   └─ src/**/*
+   │  ├─ reviews
+   │  │   ├─ r1: repo-rules (l1, 0/3)
+   │  │   │   ├─ constraint 2.3s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i6.91f4a3a9fcf12fb71f.r1._.given.by_peer.repo-rules.md
+   │  │   ├─ r2: ergo-contract-snapshots (l1, 3/3)
+   │  │   │   ├─ approved, cached
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i4.9279b59002e2847b7f.r2._.given.by_peer.ergo-contract-snapshots.md
+   │  │   ├─ r3: mech-external-contracts (l1, 3/3)
+   │  │   │   ├─ approved, cached
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i4.9279b59002e2847b7f.r3._.given.by_peer.mech-external-contracts.md
+   │  │   ├─ r4: ergo-acceptance-journey-coverage (l1, 3/3)
+   │  │   │   ├─ exhausted, cached
+   │  │   │   ├─ 1 blocker 🔴
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i4.9279b59002e2847b7f.r4._.given.by_peer.ergo-acceptance-journey-coverage.md
+   │  │   ├─ r5: ergo-snapshot-visual-blemishes (l1, 3/3)
+   │  │   │   ├─ approved, cached
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i4.9279b59002e2847b7f.r5._.given.by_peer.ergo-snapshot-visual-blemishes.md
+   │  │   ├─ r6: mech-given-when-then (l1, 3/3)
+   │  │   │   ├─ approved, cached
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i4.9279b59002e2847b7f.r6._.given.by_peer.mech-given-when-then.md
+   │  │   ├─ r7: mech-test-intent (l1, 3/3)
+   │  │   │   ├─ approved, cached
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i4.9279b59002e2847b7f.r7._.given.by_peer.mech-test-intent.md
+   │  │   ├─ r8: mech-test-scope-purity (l1, 0/3)
+   │  │   │   ├─ constraint 2.5s
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i6.91f4a3a9fcf12fb71f.r8._.given.by_peer.mech-test-scope-purity.md
+   │  │   ├─ r9: enroll-verif-snapshot-coverage (l3, 3/3)
+   │  │   │   ├─ approved, cached
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i5.7c21824f515b2c334f.r9._.given.by_peer.enroll-verif-snapshot-coverage.md
+   │  │   ├─ r10: enroll-verif-snapshot-blemishes (l3, 3/3)
+   │  │   │   ├─ approved, cached
+   │  │   │   ├─ 0 blockers ✓
+   │  │   │   ├─ 0 nitpicks ✓
+   │  │   │   └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i5.7c21824f515b2c334f.r10._.given.by_peer.enroll-verif-snapshot-blemishes.md
+   │  │   └─ r11: enroll-verif-test-intent (l3, 3/3)
+   │  │       ├─ approved, cached
+   │  │       ├─ 0 blockers ✓
+   │  │       ├─ 0 nitpicks ✓
+   │  │       └─ review: .behavior/v2026_07_03.feat-ssh-config/.reviews/peer/5.3.verification._.review.i5.7c21824f515b2c334f.r11._.given.by_peer.enroll-verif-test-intent.md
+   │  └─ judges
+   │      └─ j1: $rhachet run --repo bhrain --skill route.stone.judge --mechanism reviewed? --stone $stone --route $route --allow-blockers 0 --allow-nitpicks 0
+   │          └─ finished 0.4s ✓
+   │
+   └─ the way continues, run
+      └─ rhx route.drive

@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: a del is issued via the declastruct provider then: del removes the ssh alias + keypair and get returns null 1`] = `
+{
+  "alias": {
+    "from": "declastruct-unix-network.test",
+    "into": UnixEndpoint {
+      "host": "localhost",
+      "port": 2222,
+    },
+    "key": {
+      "via": "ssh-keygen",
+    },
+    "user": "ec2-user",
+    "via": "~/.ssh/config",
+  },
+  "keypair": {
+    "algorithm": "ed25519",
+    "comment": "declastruct-unix-network.test",
+    "publicKeyAlgo": "ssh-ed25519",
+    "via": "ssh-keygen",
+  },
+}
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: applying a plan via declastruct CLI then: executes changes and verifies resources exist 1`] = `
+{
+  "alias": {
+    "from": "declastruct-unix-network.test",
+    "into": UnixEndpoint {
+      "host": "localhost",
+      "port": 2222,
+    },
+    "key": {
+      "via": "ssh-keygen",
+    },
+    "user": "ec2-user",
+    "via": "~/.ssh/config",
+  },
+  "hostAlias": {
+    "from": "declastruct-unix-network.test.local",
+    "into": "127.0.0.1",
+    "via": "/etc/hosts",
+  },
+  "keypair": {
+    "algorithm": "ed25519",
+    "comment": "declastruct-unix-network.test",
+    "publicKeyAlgo": "ssh-ed25519",
+    "via": "ssh-keygen",
+  },
+  "portAlias": {
+    "from": UnixEndpoint {
+      "host": "127.0.0.1",
+      "port": 59432,
+    },
+    "into": UnixEndpoint {
+      "host": "127.0.0.1",
+      "port": 59433,
+    },
+    "via": "systemd-socat",
+  },
+}
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: applying a plan via declastruct CLI then: is idempotent - a re-declared state applies safely 1`] = `
+[
+  {
+    "action": "KEEP",
+    "class": "DeclaredUnixHostAlias",
+  },
+  {
+    "action": "KEEP",
+    "class": "DeclaredUnixPortAlias",
+  },
+  {
+    "action": "KEEP",
+    "class": "DeclaredUnixSshKeypair",
+  },
+  {
+    "action": "KEEP",
+    "class": "DeclaredUnixSshAlias",
+  },
+]
+`;
+
+exports[`declastruct CLI workflow given: a declastruct resources file when: generating a plan via declastruct CLI then: plan includes host, port, ssh keypair, and ssh alias resources 1`] = `
+[
+  {
+    "action": "CREATE",
+    "class": "DeclaredUnixHostAlias",
+  },
+  {
+    "action": "CREATE",
+    "class": "DeclaredUnixPortAlias",
+  },
+  {
+    "action": "CREATE",
+    "class": "DeclaredUnixSshKeypair",
+  },
+  {
+    "action": "CREATE",
+    "class": "DeclaredUnixSshAlias",
+  },
+]
+`;

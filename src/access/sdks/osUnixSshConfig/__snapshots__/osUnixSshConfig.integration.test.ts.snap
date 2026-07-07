@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://jestjs.io/docs/snapshot-testing
+
+exports[`osUnixSshConfig given: a temp ssh config path when: [t0] before any block then: the empty-config output matches snapshot 1`] = `[]`;
+
+exports[`osUnixSshConfig given: a temp ssh config path when: [t1] a block is set then: the parsed hosts match snapshot 1`] = `
+[
+  {
+    "alias": "grove",
+    "hostName": "localhost",
+    "identityFile": "~/.ssh/k",
+    "port": 2222,
+    "user": "ec2-user",
+  },
+]
+`;
+
+exports[`osUnixSshConfig given: a temp ssh config path when: [t2] the same block is set again then: the re-set hosts match snapshot 1`] = `
+[
+  {
+    "alias": "grove",
+    "hostName": "localhost",
+    "identityFile": "~/.ssh/k",
+    "port": 2222,
+    "user": "ec2-user",
+  },
+]
+`;
+
+exports[`osUnixSshConfig given: a temp ssh config path when: [t3] the block is updated in place then: the updated hosts match snapshot 1`] = `
+[
+  {
+    "alias": "grove",
+    "hostName": "localhost",
+    "identityFile": "~/.ssh/k",
+    "port": 3333,
+    "user": "ec2-user",
+  },
+]
+`;
+
+exports[`osUnixSshConfig given: a temp ssh config path when: [t4] a peer exists and the block is deleted then: the remnant hosts match snapshot 1`] = `
+[
+  {
+    "alias": "other",
+    "hostName": "other.host",
+    "identityFile": "~/.ssh/o",
+    "port": 22,
+    "user": "u",
+  },
+]
+`;
